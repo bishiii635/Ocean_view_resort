@@ -1,5 +1,6 @@
 com\oceanview\backend\dto\ForgotPasswordRequest.class
 com\oceanview\backend\dto\ResetPasswordRequest.class
+com\oceanview\backend\model\FeedbackStatus.class
 com\oceanview\backend\model\Invoice.class
 com\oceanview\backend\repository\RoomTypeRepository.class
 com\oceanview\backend\service\RoomTypeService.class
@@ -23,9 +24,12 @@ com\oceanview\backend\model\Role.class
 com\oceanview\backend\model\Room.class
 com\oceanview\backend\model\Reservation.class
 com\oceanview\backend\service\UserService.class
+com\oceanview\backend\repository\FeedbackRepository.class
+com\oceanview\backend\service\FeedbackService.class
 com\oceanview\backend\controller\RoomTypeController.class
 com\oceanview\backend\dto\ContactRequest.class
 com\oceanview\backend\dto\DashboardStatsDTO$RevenuePoint.class
+com\oceanview\backend\model\Feedback.class
 com\oceanview\backend\model\User.class
 com\oceanview\backend\model\RoomType.class
 com\oceanview\backend\dto\LoginRequest.class
@@ -33,4 +37,5 @@ com\oceanview\backend\controller\DashboardController.class
 com\oceanview\backend\model\ReservationStatus.class
 com\oceanview\backend\model\RoomStatus.class
 com\oceanview\backend\controller\InvoiceController.class
+com\oceanview\backend\controller\FeedbackController.class
 com\oceanview\backend\repository\RoomRepository.class

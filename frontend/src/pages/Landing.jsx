@@ -16,18 +16,21 @@ import resortLuxuryPool from '../assets/resort_luxury_pool_2_1771077252585.jpg';
 const Landing = () => {
     const navigate = useNavigate();
     const [recentRooms, setRecentRooms] = useState([]);
+    const [feedbacks, setFeedbacks] = useState([]);
     const [openFaq, setOpenFaq] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchRooms = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/rooms');
-                // Get the last 6 rooms (assuming chronological order by DB)
-                const rooms = response.data.slice(-6).reverse();
-                setRecentRooms(rooms);
+                const [roomsRes, feedbacksRes] = await Promise.all([
+                    axios.get('http://localhost:8080/api/rooms'),
+                    axios.get('http://localhost:8080/api/feedbacks/approved')
+                ]);
+                setRecentRooms(roomsRes.data.slice(-6).reverse());
+                setFeedbacks(feedbacksRes.data);
             } catch (error) {
-                console.error('Error fetching rooms:', error);
+                console.error('Error fetching data:', error);
             } finally {
                 setLoading(false);
             }
@@ -267,6 +270,50 @@ const Landing = () => {
                                 <div className="w-64 h-64 border-[20px] border-white/5 rounded-full animate-pulse"></div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Testimonials Section */}
+            <section className="py-32 bg-slate-50 overflow-hidden relative">
+                <div className="container mx-auto px-6 relative z-10">
+                    <div className="text-center space-y-4 mb-20">
+                        <h4 className="text-cyan-600 font-black uppercase tracking-[0.3em] text-xs">Guest Voice</h4>
+                        <h2 className="text-4xl md:text-5xl font-black text-slate-900">Memorable Experiences</h2>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {feedbacks.length > 0 ? (
+                            feedbacks.slice(0, 3).map((f) => (
+                                <div key={f.id} className="bg-white border border-slate-100 p-10 rounded-[2.5rem] shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all group relative">
+                                    <Star className="absolute top-8 right-8 w-12 h-12 text-cyan-50 -z-0" />
+                                    <div className="relative z-10">
+                                        <div className="flex gap-1 mb-6">
+                                            {[...Array(5)].map((_, i) => (
+                                                <Star key={i} className={`w-4 h-4 ${i < f.rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-200'}`} />
+                                            ))}
+                                        </div>
+                                        <p className="text-lg text-slate-600 font-medium italic mb-8 leading-relaxed">
+                                            "{f.comment}"
+                                        </p>
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-12 h-12 bg-cyan-100 rounded-2xl flex items-center justify-center text-cyan-600 font-black text-xl">
+                                                {f.userName.charAt(0)}
+                                            </div>
+                                            <div>
+                                                <h4 className="font-black text-slate-900 text-lg">{f.userName}</h4>
+                                                <p className="text-xs text-cyan-600 font-black uppercase tracking-widest">Verified Guest</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="col-span-3 text-center py-20 bg-white rounded-[2.5rem] border-2 border-dashed border-slate-200">
+                                <p className="text-slate-400 text-lg font-medium">No experiences shared yet. Be the first to tell our story.</p>
+                                <Link to="/feedbacks" className="inline-block mt-6 text-cyan-600 font-black hover:underline">Share Yours</Link>
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>

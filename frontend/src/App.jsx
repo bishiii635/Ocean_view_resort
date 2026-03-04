@@ -18,12 +18,12 @@ import Contact from './pages/Contact'
 import Rooms from './pages/Rooms'
 import Help from './pages/Help'
 import AdminHelp from './pages/AdminHelp'
+import FeedbackManagement from './pages/FeedbackManagement'
 import StaffHelp from './pages/StaffHelp'
 import StaffDashboard from './pages/StaffDashboard'
 import RoomCleaning from './pages/RoomCleaning'
 import RoomDetails from './pages/RoomDetails'
-
-
+import Feedbacks from './pages/Feedbacks'
 
 function App() {
   return (
@@ -36,6 +36,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/rooms" element={<Rooms />} />
+          <Route path="/feedbacks" element={<Feedbacks />} />
           <Route path="/room/:id" element={<RoomDetails />} />
           <Route path="/help" element={<Help />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -46,6 +47,7 @@ function App() {
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/reservations" element={<ReservationManagement />} />
           <Route path="/admin/users" element={<UserManagement />} />
+          <Route path="/admin/feedbacks" element={<FeedbackManagement />} />
           <Route path="/admin/room-categories" element={<RoomCategories />} />
           <Route path="/admin/rooms" element={<RoomManagement />} />
           <Route path="/admin/help" element={<AdminHelp />} />
