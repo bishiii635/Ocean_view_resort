@@ -106,23 +106,109 @@ public class ReservationService {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setTo(guest.getEmail());
-            helper.setSubject(subject);
+            helper.setSubject("Ocean View Resort - " + subject);
 
             String htmlContent = String.format(
-                "<div style='font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;'>" +
-                "<h2 style='color: #0ea5e9;'>Ocean View Resort</h2>" +
-                "<p>Dear %s,</p>" +
-                "<p>%s</p>" +
-                "<hr/>" +
-                "<h3>Reservation Details:</h3>" +
-                "<p><strong>Room:</strong> %s</p>" +
-                "<p><strong>Check-In:</strong> %s</p>" +
-                "<p><strong>Check-Out:</strong> %s</p>" +
-                "<p><strong>Total Price:</strong> Rs. %.2f</p>" +
-                "<hr/>" +
-                "<p>Thank you for choosing Ocean View Resort!</p>" +
+                "<div style=\"background-color: #FAF9F6; padding: 60px 20px; font-family: 'Times New Roman', serif; color: #2C1D1A;\">" +
+                "  <div style=\"max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #E8E2D6; box-shadow: 0 20px 50px rgba(44,29,26,0.05);\">" +
+                "    <div style=\"background-color: #2C1D1A; padding: 50px 40px; text-align: center; border-bottom: 5px solid #C5A059;\">" +
+                "      <div style=\"display: inline-block; padding: 15px; border: 1px solid #C5A059; margin-bottom: 20px;\">" +
+                "        <span style=\"color: #C5A059; font-size: 30px; font-weight: bold;\">W</span>" +
+                "      </div>" +
+                "      <h1 style=\"color: #C5A059; margin: 0; font-size: 24px; letter-spacing: 5px; text-transform: uppercase; font-weight: 900;\">Ocean View</h1>" +
+                "      <p style=\"color: #C5A059; margin: 10px 0 0 0; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; opacity: 0.8;\">Resort & Imperial Estate</p>" +
+                "    </div>" +
+                "    <div style=\"padding: 50px 50px 40px 50px; line-height: 1.8;\">" +
+                "      <h2 style=\"font-style: italic; color: #2C1D1A; margin-top: 0; font-size: 26px; font-weight: 300; border-bottom: 1px solid #E8E2D6; pb: 20px; mb: 30px;\">Greetings, %s</h2>" +
+                "      <p style=\"font-size: 16px; color: #5D4037; font-weight: 500; margin-bottom: 40px;\">%s</p>" +
+                "      " +
+                "      <div style=\"background-color: #FAF9F6; padding: 40px; border-left: 3px solid #C5A059; margin-bottom: 40px;\">" +
+                "        <h4 style=\"margin: 0 0 20px 0; color: #2C1D1A; text-transform: uppercase; letter-spacing: 2px; font-size: 12px;\">Sanctuarial Record</h4>" +
+                "        <div style=\"display: grid; gap: 15px;\">" +
+                "          <p style=\"margin: 5px 0;\"><strong style=\"color: #C5A059; text-transform: uppercase; font-size: 10px; letter-spacing: 1px;\">Sanctuary:</strong> <span style=\"font-style: italic; font-size: 18px;\">%s</span></p>" +
+                "          <p style=\"margin: 5px 0;\"><strong style=\"color: #C5A059; text-transform: uppercase; font-size: 10px; letter-spacing: 1px;\">Era Span:</strong> <span style=\"font-style: italic;\">%s &mdash; %s</span></p>" +
+                "          <p style=\"margin: 5px 0;\"><strong style=\"color: #C5A059; text-transform: uppercase; font-size: 10px; letter-spacing: 1px;\">Valuation:</strong> <span style=\"font-weight: bold; font-size: 20px;\">LKR %.2f</span></p>" +
+                "        </div>" +
+                "      </div>" +
+                "      " +
+                "      <p style=\"font-size: 14px; text-align: center; font-style: italic; color: #8D6E63; margin-top: 50px;\">" +
+                "        \"Your comfort is our heritage. We await your arrival at the estate.\"" +
+                "      </p>" +
+                "    </div>" +
+                "    <div style=\"background-color: #FAF9F6; padding: 30px; text-align: center; border-top: 1px solid #E8E2D6;\">" +
+                "      <p style=\"margin: 0; font-size: 9px; color: #8D6E63; letter-spacing: 2px; text-transform: uppercase; font-weight: bold;\">&copy; 2026 Ocean View Resort. All Noble Rights Reserved.</p>" +
+                "    </div>" +
+                "  </div>" +
                 "</div>",
                 guest.getName(), messageContent, roomName, reservation.getCheckIn(), reservation.getCheckOut(), reservation.getTotalCost()
+            );
+
+            helper.setText(htmlContent, true);
+            mailSender.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendInvoiceEmail(String reservationId) {
+        Reservation reservation = getReservationById(reservationId);
+        User guest = userRepository.findById(reservation.getGuestId()).orElse(null);
+        if (guest == null || guest.getEmail() == null) return;
+
+        Room room = roomRepository.findById(reservation.getRoomId()).orElse(null);
+        String roomName = room != null ? room.getName() : "Grand Sanctuary";
+
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setTo(guest.getEmail());
+            helper.setSubject("Ocean View Resort - Imperial Statement #" + reservationId.substring(0, 8).toUpperCase());
+
+            String htmlContent = String.format(
+                "<div style=\"background-color: #FAF9F6; padding: 60px 20px; font-family: 'Times New Roman', serif; color: #2C1D1A;\">" +
+                "  <div style=\"max-width: 600px; margin: 0 auto; background-color: #ffffff; border-top: 10px solid #C5A059; box-shadow: 0 20px 50px rgba(0,0,0,0.1);\">" +
+                "    <div style=\"padding: 50px; border: 1px solid #E8E2D6;\">" +
+                "      <div style=\"text-align: right; margin-bottom: 40px;\">" +
+                "        <h1 style=\"color: #2C1D1A; margin: 0; font-size: 28px; text-transform: uppercase; letter-spacing: 2px; font-weight: 900; font-style: italic;\">Imperial Statement</h1>" +
+                "        <p style=\"color: #C5A059; margin: 5px 0 0 0; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: bold;\">Official Ledger Entry</p>" +
+                "      </div>" +
+                "      " +
+                "      <div style=\"margin-bottom: 50px;\">" +
+                "        <p style=\"margin: 0; font-size: 10px; color: #C5A059; text-transform: uppercase; letter-spacing: 2px; font-weight: bold;\">Noble Patron</p>" +
+                "        <p style=\"margin: 5px 0; font-size: 20px; font-weight: bold; font-style: italic;\">%s</p>" +
+                "      </div>" +
+                "      " +
+                "      <div style=\"border: 1px solid #E8E2D6; margin-bottom: 40px; background-color: #FAF9F6;\">" +
+                "        <div style=\"background-color: #2C1D1A; color: #C5A059; padding: 15px 25px; display: flex; justify-content: space-between;\">" +
+                "          <span style=\"font-size: 10px; text-transform: uppercase; letter-spacing: 2px;\">Service Details</span>" +
+                "          <span style=\"font-size: 10px; text-transform: uppercase; letter-spacing: 2px; float: right;\">Valuation</span>" +
+                "        </div>" +
+                "        <div style=\"padding: 30px;\">" +
+                "          <div style=\"display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;\">" +
+                "            <div style=\"width: 70%%;\">" +
+                "              <p style=\"margin: 0; font-size: 18px; font-weight: bold; font-style: italic;\">%s</p>" +
+                "              <p style=\"margin: 5px 0 0 0; font-size: 9px; color: #8D6E63; text-transform: uppercase; letter-spacing: 1px;\">Imperial Residency Decree #%s</p>" +
+                "            </div>" +
+                "            <div style=\"width: 30%%; text-align: right; float: right;\">" +
+                "              <p style=\"margin: 0; font-size: 18px; font-weight: bold;\">LKR %.2f</p>" +
+                "            </div>" +
+                "            <div style=\"clear: both;\"></div>" +
+                "          </div>" +
+                "          <hr style=\"border: 0; border-top: 1px solid #E8E2D6; margin: 20px 0;\" />" +
+                "          <div style=\"text-align: right;\">" +
+                "            <p style=\"margin: 0; font-size: 10px; color: #C5A059; text-transform: uppercase; letter-spacing: 1px; font-weight: bold;\">Total Prosperity Summation</p>" +
+                "            <p style=\"margin: 5px 0 0 0; font-size: 32px; font-weight: 900; color: #2C1D1A; font-style: italic;\">LKR %.2f</p>" +
+                "          </div>" +
+                "        </div>" +
+                "      </div>" +
+                "      " +
+                "      <div style=\"text-align: center; margin-top: 50px;\">" +
+                "        <p style=\"font-size: 11px; color: #8D6E63; font-weight: 500; font-style: italic;\">\"Transcribed by the Imperial Records Office - 2026\"</p>" +
+                "      </div>" +
+                "    </div>" +
+                "  </div>" +
+                "</div>",
+                guest.getName(), roomName, reservationId.substring(0, 8).toUpperCase(), reservation.getTotalCost(), reservation.getTotalCost()
             );
 
             helper.setText(htmlContent, true);

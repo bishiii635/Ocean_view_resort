@@ -124,6 +124,17 @@ const ReservationManagement = () => {
         }
     };
 
+    const handleSendInvoice = async (reservationId) => {
+        try {
+            await axios.post(`http://localhost:8080/api/reservations/${reservationId}/send-invoice`);
+            setSuccess('Imperial Statement dispatched to noble guest.');
+            setTimeout(() => setSuccess(''), 3000);
+        } catch (err) {
+            setError('Failed to dispatch missive. Verification required.');
+            setTimeout(() => setError(''), 3000);
+        }
+    };
+
     const handleDeleteReservation = async (id) => {
         if (window.confirm('Are you certain you wish to rescind this imperial decree?')) {
             try {
@@ -555,6 +566,14 @@ const ReservationManagement = () => {
                                             AN AUTHENTIC HERITAGE OF THE SOUTHERN COAST &mdash; OCEAN VIEW RESORT
                                         </div>
                                     </div>
+                                </div>
+                                <div className="max-w-4xl mx-auto mt-12 mb-20 flex gap-6 print-hide">
+                                     <button 
+                                        onClick={() => handleSendInvoice(viewingInvoice.reservationId)}
+                                        className="flex-1 py-6 bg-[#2C1D1A] text-[#C5A059] border border-[#C5A059]/30 font-black text-[11px] uppercase tracking-[0.4em] hover:bg-[#C5A059] hover:text-[#2C1D1A] transition-all duration-700 shadow-2xl flex items-center justify-center gap-4"
+                                    >
+                                        <Mail className="w-5 h-5" /> Dispatch Electronic Scroll
+                                    </button>
                                 </div>
                             </div>
                         </div>

@@ -67,25 +67,32 @@ public class UserService {
             jakarta.mail.internet.MimeMessage mimeMessage = mailSender.createMimeMessage();
             org.springframework.mail.javamail.MimeMessageHelper helper = new org.springframework.mail.javamail.MimeMessageHelper(mimeMessage, "utf-8");
             
-            String htmlMsg = "<div style=\"font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8fafc; padding: 40px 20px; color: #1e293b;\">" +
-                "  <div style=\"max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;\">" +
-                "    <div style=\"background: linear-gradient(135deg, #0ea5e9, #2563eb); padding: 40px 20px; text-align: center;\">" +
-                "      <h1 style=\"color: #ffffff; margin: 0; font-size: 28px; letter-spacing: -0.5px;\">Ocean View Resort</h1>" +
-                "      <p style=\"color: #e0f2fe; margin-top: 10px; font-size: 16px;\">Password Reset Request</p>" +
-                "    </div>" +
-                "    <div style=\"padding: 40px; line-height: 1.6;\">" +
-                "      <h2 style=\"color: #0f172a; margin-top: 0; font-size: 24px;\">Hello,</h2>" +
-                "      <p style=\"font-size: 16px; color: #475569;\">We received a request to reset your password. If you didn't make this request, you can safely ignore this email.</p>" +
-                "      <div style=\"text-align: center; margin: 40px 0;\">" +
-                "        <a href=\"" + resetUrl + "\" style=\"background-color: #0f172a; color: #ffffff; padding: 16px 36px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 16px; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);\">Reset Password</a>" +
+            String htmlMsg = "<div style=\"background-color: #FAF9F6; padding: 60px 20px; font-family: 'Times New Roman', serif; color: #2C1D1A;\">" +
+                "  <div style=\"max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #E8E2D6; box-shadow: 0 20px 50px rgba(44,29,26,0.05);\">" +
+                "    <div style=\"background-color: #2C1D1A; padding: 50px 40px; text-align: center; border-bottom: 5px solid #C5A059;\">" +
+                "      <div style=\"display: inline-block; padding: 12px; border: 1px solid #C5A059; margin-bottom: 20px;\">" +
+                "        <span style=\"color: #C5A059; font-size: 24px; font-weight: bold;\">OVR</span>" +
                 "      </div>" +
-                "      <p style=\"font-size: 14px; color: #64748b; text-align: center;\">This link will expire in 1 hour for your security.</p>" +
-                "      <hr style=\"border: 0; border-top: 1px solid #e2e8f0; margin: 30px 0;\">" +
-                "      <p style=\"font-size: 13px; color: #94a3b8;\">If you're having trouble clicking the \"Reset Password\" button, copy and paste the URL below into your web browser:</p>" +
-                "      <p style=\"font-size: 13px; color: #3b82f6; word-break: break-all;\">" + resetUrl + "</p>" +
+                "      <h1 style=\"color: #C5A059; margin: 0; font-size: 22px; letter-spacing: 5px; text-transform: uppercase; font-weight: 900;\">Security Ledger</h1>" +
+                "      <p style=\"color: #C5A059; margin: 10px 0 0 0; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.8;\">Ocean View Palace Registry</p>" +
                 "    </div>" +
-                "    <div style=\"background-color: #f1f5f9; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;\">" +
-                "      <p style=\"margin: 0; font-size: 14px; color: #64748b;\">&copy; 2026 Ocean View Resort. All rights reserved.</p>" +
+                "    <div style=\"padding: 50px; line-height: 1.8;\">" +
+                "      <h2 style=\"font-style: italic; color: #2C1D1A; margin-top: 0; font-size: 24px; font-weight: 300;\">Password Recovery Decree</h2>" +
+                "      <p style=\"font-size: 16px; color: #5D4037; font-weight: 500; margin-bottom: 35px;\">" +
+                "        A request has been received by the Imperial Records Office to rescind your previous cipher and establish a new one. If this mission was not authorized by you, the present scroll may be safely ignored." +
+                "      </p>" +
+                "      <div style=\"text-align: center; margin: 45px 0;\">" +
+                "        <a href=\"" + resetUrl + "\" style=\"background-color: #2C1D1A; color: #C5A059; padding: 18px 45px; border: 1px solid #C5A059; text-decoration: none; font-weight: bold; font-size: 11px; text-transform: uppercase; letter-spacing: 3px; display: inline-block; box-shadow: 0 10px 20px rgba(0,0,0,0.1);\">Establish New Cipher</a>" +
+                "      </div>" +
+                "      <p style=\"font-size: 13px; color: #8D6E63; text-align: center; font-style: italic;\">This authorization link expires in 60 minutes for your security.</p>" +
+                "      <hr style=\"border: 0; border-top: 1px solid #E8E2D6; margin: 40px 0;\">" +
+                "      <p style=\"font-size: 12px; color: #94a3b8; font-style: italic; line-height: 1.6;\">" +
+                "        If the button fails to operate, please relay the following scroll to your browser portal:<br/>" +
+                "        <span style=\"color: #C5A059; word-break: break-all;\">" + resetUrl + "</span>" +
+                "      </p>" +
+                "    </div>" +
+                "    <div style=\"background-color: #FAF9F6; padding: 25px; text-align: center; border-top: 1px solid #E8E2D6;\">" +
+                "      <p style=\"margin: 0; font-size: 9px; color: #8D6E63; letter-spacing: 2px; text-transform: uppercase; font-weight: bold;\">&copy; 2026 Ocean View Resort. Portals of Heritage.</p>" +
                 "    </div>" +
                 "  </div>" +
                 "</div>";

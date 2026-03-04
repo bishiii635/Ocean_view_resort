@@ -63,6 +63,16 @@ public class ReservationController {
         }
     }
 
+    @PostMapping("/{id}/send-invoice")
+    public ResponseEntity<?> sendInvoiceEmail(@PathVariable String id) {
+        try {
+            reservationService.sendInvoiceEmail(id);
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteReservation(@PathVariable String id) {
         try {
