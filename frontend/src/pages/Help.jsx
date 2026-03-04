@@ -1,19 +1,23 @@
 import { 
     HelpCircle, Book, MessageSquare, Shield, CreditCard, 
     LifeBuoy, Search, ChevronRight, UserPlus, Bed, 
-    CheckCircle2, Clock, MapPin, Zap, Crown, Compass, Anchor, Sparkles
+    CheckCircle2, Clock, MapPin, Zap, Crown, Compass, Anchor, Sparkles, ChevronDown
 } from 'lucide-react';
+import { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import resortExterior from '../assets/resort_exterior_elite_1771077046898.jpg';
 
 const Help = () => {
+  const [openFaq, setOpenFaq] = useState(null);
+  
+  // Luxury Vintage Unsplash Images
+  const heroBg = "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&q=80&w=2000"; // Luxury Lobby
+  const ctaBg = "https://images.unsplash.com/photo-1544124499-58d62681995a?auto=format&fit=crop&q=80&w=2000"; // Colonial Balcony
+
   const guideSections = [
     {
         title: "Noble Registry",
         icon: UserPlus,
-        color: "text-[#C5A059]",
-        bg: "bg-[#5D4037]",
         steps: [
             "Inscribe your identity using a valid electronic missive.",
             "Verify your noble status to unlock the complete sanctuary collection.",
@@ -24,8 +28,6 @@ const Help = () => {
     {
         title: "The Sanctuary Search",
         icon: Bed,
-        color: "text-[#C5A059]",
-        bg: "bg-[#5D4037]",
         steps: [
             "Traverse our curated collections within the 'Sanctuaries' wing.",
             "Distinguish by collection type to find your ideal tropical estate.",
@@ -36,8 +38,6 @@ const Help = () => {
     {
         title: "Imperial Reservation",
         icon: Zap,
-        color: "text-[#C5A059]",
-        bg: "bg-[#5D4037]",
         steps: [
             "Designate your sanctuary and invoke the 'Reserve Stay' decree.",
             "Review stay particulars and any bespoke requirements.",
@@ -48,8 +48,6 @@ const Help = () => {
     {
         title: "Archive Management",
         icon: Clock,
-        color: "text-[#C5A059]",
-        bg: "bg-[#5D4037]",
         steps: [
             "Observe all historical and forthcoming stays in your private log.",
             "Trace the progression of pending reservation decrees.",
@@ -83,52 +81,72 @@ const Help = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative pt-48 pb-40 overflow-hidden bg-[#2C1D1A]">
+      <section className="relative pt-64 pb-52 overflow-hidden bg-[#2C1D1A]">
         <div className="absolute inset-0 z-0">
           <img 
-            src={resortExterior} 
-            className="w-full h-full object-cover opacity-10 scale-110 grayscale"
-            alt="Estate background"
+            src={heroBg} 
+            className="w-full h-full object-cover opacity-10 scale-125 grayscale animate-pulse-slow"
+            alt="Estate heritage"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#2C1D1A]/80 via-[#2C1D1A]/50 to-[#2C1D1A]"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#2C1D1A]/90 via-[#2C1D1A]/70 to-[#2C1D1A]"></div>
+          {/* Decorative Corner Ornaments */}
+          <div className="absolute top-48 left-20 w-32 h-32 border-l border-t border-[#C5A059]/30"></div>
+          <div className="absolute bottom-20 right-20 w-32 h-32 border-r border-b border-[#C5A059]/30"></div>
         </div>
 
         <div className="container mx-auto px-6 relative z-10 text-center">
-          <div className="inline-flex items-center gap-4 px-6 py-2 bg-[#C5A059]/10 text-[#C5A059] border border-[#C5A059]/20 font-bold text-[10px] uppercase tracking-[0.5em] mb-10 translate-y-0 group hover:-translate-y-1 transition-transform cursor-default">
-            <Crown className="w-5 h-5" />
-            Imperial Support Concierge
+          <div className="flex justify-center mb-12">
+            <div className="inline-flex items-center gap-6 px-10 py-3 bg-[#C5A059]/5 border border-[#C5A059]/30 backdrop-blur-sm">
+                <Crown className="w-5 h-5 text-[#C5A059]" />
+                <span className="text-[#C5A059] font-bold text-[11px] uppercase tracking-[0.6em]">Imperial Support Archives</span>
+                <Crown className="w-5 h-5 text-[#C5A059]" />
+            </div>
           </div>
-          <h1 className="text-6xl md:text-9xl font-serif font-black text-white mb-10 tracking-tighter leading-[0.9] italic">
-            How May We <br/> Be Of <span className="text-[#C5A059]">Service?</span>
+          <h1 className="text-7xl md:text-9xl font-serif font-black text-white mb-10 tracking-tighter leading-none italic animate-in fade-in slide-in-from-bottom-10 duration-1000">
+            Consult <br/> The <span className="text-[#C5A059]">Registry</span>
           </h1>
+          <p className="text-[#E3C184] text-xl md:text-2xl italic font-medium max-w-2xl mx-auto leading-relaxed opacity-80 border-t border-[#C5A059]/20 pt-10">
+            Your essential chronicles for navigating the grandeur of Ocean View Resort.
+          </p>
         </div>
       </section>
 
-      {/* Quick Guide Grid */}
-      <section className="py-32 container mx-auto px-6">
-        <div className="text-center mb-24 space-y-6">
-            <h4 className="text-[#C5A059] font-bold uppercase tracking-[0.5em] text-xs">Royal Protocols</h4>
-            <h2 className="text-5xl md:text-7xl font-serif font-black text-[#2C1D1A]">Platform Chronicles</h2>
+      {/* Guide Section */}
+      <section className="py-40 container mx-auto px-6 bg-white border-y border-[#E8E2D6]">
+        <div className="flex flex-col items-center text-center mb-24 space-y-6">
+            <div className="p-5 bg-[#2C1D1A] text-[#C5A059] shadow-2xl rotate-45 mb-8 border border-[#C5A059]/30">
+                <Book className="w-10 h-10 -rotate-45" />
+            </div>
+            <h4 className="text-[#C5A059] font-bold uppercase tracking-[0.5em] text-[10px]">Stewardship Protocols</h4>
+            <h2 className="text-6xl md:text-7xl font-serif font-black text-[#2C1D1A]">Platform Chronicles</h2>
+            <div className="w-24 h-px bg-[#C5A059] mt-4"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
           {guideSections.map((section, idx) => (
-            <div key={idx} className="group bg-white p-16 border border-[#E8E2D6] shadow-xl hover:border-[#C5A059] transition-all duration-700 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#C5A059]/5 rounded-bl-[5rem] translate-x-12 -translate-y-12 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-700"></div>
+            <div key={idx} className="group relative p-16 border border-[#E8E2D6] bg-[#FAF9F6]/30 hover:bg-white hover:shadow-2xl transition-all duration-700 hover:border-[#C5A059] overflow-hidden">
+                {/* Decorative Pattern Background */}
+                <div className="absolute top-0 right-0 w-48 h-48 bg-[#C5A059]/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-1000"></div>
                 
-                <div className="flex flex-col md:flex-row items-center md:items-start gap-10 relative z-10">
-                    <div className="p-6 bg-[#2C1D1A] text-[#C5A059] shadow-2xl group-hover:scale-110 transition-transform duration-500">
-                        <section.icon className="w-10 h-10" />
-                    </div>
-                    <div className="space-y-10 flex-1 text-center md:text-left">
-                        <h3 className="text-3xl font-serif font-bold text-[#2C1D1A] tracking-wide">{section.title}</h3>
-                        <ul className="space-y-6">
+                <div className="relative z-10 flex flex-col md:flex-row gap-12 items-start">
+                    <div className="flex-1 space-y-12">
+                        <div className="flex items-center gap-6">
+                            <div className="p-4 bg-[#2C1D1A] text-[#C5A059] shadow-xl group-hover:rotate-12 transition-transform duration-500">
+                                <section.icon className="w-8 h-8" />
+                            </div>
+                            <h3 className="text-3xl font-serif font-black text-[#2C1D1A] italic tracking-tight">{section.title}</h3>
+                        </div>
+                        
+                        <ul className="space-y-8">
                             {section.steps.map((step, sIdx) => (
-                                <li key={sIdx} className="flex flex-col md:flex-row gap-6 text-[#6D5B57] font-medium leading-relaxed group/item items-center md:items-start">
-                                    <div className="min-w-[40px] h-[40px] border border-[#C5A059] text-[12px] font-black text-[#C5A059] flex items-center justify-center font-serif bg-[#FAF9F6]">
-                                        0{sIdx + 1}
+                                <li key={sIdx} className="flex gap-6 group/item">
+                                    <div className="mt-1.5 flex flex-col items-center gap-2">
+                                        <div className="w-2 h-2 rounded-full bg-[#C5A059]"></div>
+                                        <div className="w-px h-full bg-[#C5A059]/20 group-hover/item:bg-[#C5A059]/60 transition-all"></div>
                                     </div>
-                                    <span className="group-hover/item:text-[#2C1D1A] transition-colors italic text-lg">{step}</span>
+                                    <p className="text-lg text-[#6D5B57] font-medium italic group-hover/item:text-[#2C1D1A] transition-colors leading-relaxed">
+                                        {step}
+                                    </p>
                                 </li>
                             ))}
                         </ul>
@@ -139,59 +157,77 @@ const Help = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-40 bg-[#FAF9F6] border-y border-[#E8E2D6]">
-        <div className="container mx-auto px-6 max-w-4xl">
-            <div className="flex flex-col items-center text-center mb-24 space-y-6">
-                <div className="w-20 h-20 bg-[#2C1D1A] text-[#C5A059] flex items-center justify-center shadow-2xl mb-8">
-                    <HelpCircle className="w-10 h-10" />
-                </div>
-                <h2 className="text-5xl md:text-6xl font-serif font-black text-[#2C1D1A]">Frequent Consultations</h2>
-                <p className="text-[#8D6E63] font-bold uppercase tracking-[0.3em] text-[10px]">Universal inquiries answered by the resort senate.</p>
+      {/* Accordion FAQ Section */}
+      <section className="py-48 bg-[#FAF9F6] relative">
+        <div className="container mx-auto px-6 max-w-5xl relative z-10">
+            <div className="text-center mb-32">
+                 <h4 className="text-[#8D6E63] font-bold uppercase tracking-[0.5em] text-[10px] mb-4">The Repository</h4>
+                 <h2 className="text-6xl md:text-7xl font-serif font-black text-[#2C1D1A] italic tracking-tight">Frequent Consultations</h2>
             </div>
 
-            <div className="space-y-6">
-                {faqs.map((faq, i) => (
-                    <div key={i} className="bg-white border border-[#E8E2D6] overflow-hidden hover:border-[#C5A059] transition-all duration-500 group">
-                        <details className="w-full">
-                            <summary className="w-full px-12 py-10 text-left flex justify-between items-center cursor-pointer list-none">
-                                <span className="text-2xl font-serif font-bold text-[#2C1D1A] group-hover:text-[#5D4037] transition-colors tracking-wide">{faq.q}</span>
-                                <div className="w-12 h-12 border border-[#E8E2D6] flex items-center justify-center group-hover:bg-[#C5A059] group-hover:text-[#2C1D1A] transition-all duration-500">
-                                    <ChevronRight className="w-6 h-6 rotate-90" />
+            <div className="space-y-8">
+                {faqs.map((faq, index) => (
+                    <div 
+                        key={index} 
+                        className={`transition-all duration-700 bg-white border-2 hover:border-[#C5A059] shadow-sm ${
+                            openFaq === index ? 'border-[#C5A059] shadow-2xl' : 'border-[#E8E2D6]'
+                        }`}
+                    >
+                        <div 
+                            className="p-12 flex items-center justify-between cursor-pointer group"
+                            onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                        >
+                            <div className="flex items-center gap-10">
+                                <div className={`w-14 h-14 border border-[#E8E2D6] flex items-center justify-center font-serif text-2xl font-black transition-all duration-500 ${
+                                    openFaq === index ? 'bg-[#2C1D1A] text-[#C5A059] border-[#C5A059]' : 'text-[#8D6E63] group-hover:text-[#2C1D1A]'
+                                }`}>
+                                    0{index + 1}
                                 </div>
-                            </summary>
-                            <div className="px-12 pb-10 text-[#6D5B57] text-xl leading-relaxed italic font-medium">
-                                <div className="pt-8 border-t border-[#FAF9F6]">
-                                    {faq.a}
-                                </div>
+                                <h4 className="text-2xl font-serif font-bold text-[#2C1D1A] tracking-wide">{faq.q}</h4>
                             </div>
-                        </details>
+                            <ChevronDown className={`w-6 h-6 text-[#8D6E63] transition-transform duration-700 ${openFaq === index ? 'rotate-180 text-[#C5A059]' : 'group-hover:text-[#C5A059]'}`} />
+                        </div>
+                        <div className={`overflow-hidden transition-all duration-700 bg-[#FAF9F6]/50 ${openFaq === index ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                            <div className="px-24 pb-16 pt-8 relative">
+                                <div className="absolute left-16 top-8 bottom-16 w-1 bg-[#C5A059]/20"></div>
+                                <p className="text-[#6D5B57] font-medium leading-[2.2] text-xl italic pl-8">
+                                    {faq.a}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div>
         </div>
+        
+        {/* Artistic Background Element */}
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-[#E8E2D6]/10 -skew-x-12 -z-0"></div>
       </section>
 
-      {/* Support CTA */}
-      <section className="py-48 container mx-auto px-6">
-        <div className="relative bg-[#2C1D1A] p-20 md:p-32 text-center text-white overflow-hidden group">
-            <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#C5A059]/5 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
-            
-            <div className="relative z-10 max-w-4xl mx-auto space-y-16">
-                <div className="space-y-8">
-                    <h2 className="text-5xl md:text-8xl font-serif font-black tracking-tighter italic">Still Enquiring?</h2>
-                    <p className="text-[#E3C184] text-xl font-medium leading-relaxed italic max-w-2xl mx-auto">
-                        Our master of ceremonies and private stewards are available 24/7. Let us ensure your experience is absolute perfection.
-                    </p>
-                </div>
+      {/* Concierge CTA */}
+      <section className="py-52 container mx-auto px-6">
+        <div className="relative border-[10px] border-[#2C1D1A] p-4 group">
+            <div className="relative bg-[#2C1D1A] p-24 md:p-40 text-center text-white overflow-hidden border border-[#C5A059]/30">
+                <div className="absolute inset-0 opacity-10 grayscale group-hover:scale-110 transition-transform duration-[20s] bg-cover bg-center" style={{ backgroundImage: `url(${ctaBg})` }}></div>
                 
-                <div className="flex flex-col sm:flex-row gap-8 justify-center items-center pt-8">
-                    <a href="/contact" className="group px-16 py-7 bg-[#C5A059] text-[#2C1D1A] font-bold text-[10px] tracking-[0.5em] uppercase hover:bg-white transition-all duration-700 shadow-2xl flex items-center justify-center gap-4">
-                        Consult Concierge <Compass className="w-6 h-6 group-hover:rotate-45 transition-transform duration-700" />
-                    </a>
-                    <a href="tel:+94112345678" className="px-16 py-7 bg-transparent border-2 border-white/20 text-white font-bold text-[10px] tracking-[0.5em] uppercase hover:border-[#C5A059] hover:text-[#C5A059] transition-all duration-700 flex items-center justify-center gap-4">
-                        Royal Hotline <Sparkles className="w-6 h-6" />
-                    </a>
+                <div className="relative z-10 max-w-4xl mx-auto space-y-16">
+                    <div className="space-y-10">
+                        <Compass className="w-16 h-16 text-[#C5A059] mx-auto animate-spin-slow" />
+                        <h2 className="text-6xl md:text-9xl font-serif font-black tracking-tighter italic leading-none">Seek More?</h2>
+                        <p className="text-[#E3C184] text-2xl font-medium leading-relaxed italic max-w-3xl mx-auto opacity-80 pt-10 border-t border-white/10">
+                            Our stewards of heritage are prepared to assist with any bespoke requirement. Dispatch your inquiry or summon us directly.
+                        </p>
+                    </div>
+                    
+                    <div className="flex flex-col sm:flex-row gap-10 justify-center items-center">
+                        <a href="/contact" className="group px-20 py-8 bg-[#C5A059] text-[#2C1D1A] font-bold text-[11px] uppercase tracking-[0.5em] hover:bg-white transition-all duration-700 shadow-2xl flex items-center justify-center gap-6">
+                            Dispatch Inquiry <MessageSquare className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                        </a>
+                        <div className="flex flex-col items-center gap-4">
+                            <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#C5A059]">Direct Noble Line</span>
+                            <span className="text-3xl font-serif font-black text-white italic">+94 11 234 5678</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
