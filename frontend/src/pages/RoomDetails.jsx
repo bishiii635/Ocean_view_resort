@@ -17,7 +17,11 @@ import {
     CreditCard,
     Wind,
     Wifi,
-    Coffee
+    Coffee,
+    Crown,
+    Gem,
+    Compass,
+    Anchor
 } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
@@ -138,115 +142,140 @@ const RoomDetails = () => {
     };
 
     if (loading) return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-50">
-            <Loader2 className="w-12 h-12 text-cyan-600 animate-spin" />
+        <div className="min-h-screen flex items-center justify-center bg-[#FAF9F6]">
+            <Loader2 className="w-12 h-12 text-[#C5A059] animate-spin" />
         </div>
     );
 
-    if (!room) return <div className="text-center py-40">Room not found</div>;
+    if (!room) return <div className="text-center py-40 font-serif text-[#2C1D1A]">Sanctuary not found in heritage records.</div>;
 
     return (
-        <div className="min-h-screen bg-slate-50 font-sans">
+        <div className="min-h-screen bg-[#FAF9F6] font-sans">
             <Header />
             
-            <main className="container mx-auto px-6 pt-32 pb-20">
+            <main className="container mx-auto px-6 pt-48 pb-32">
                 <button 
                     onClick={() => navigate('/rooms')}
-                    className="flex items-center gap-2 text-slate-500 hover:text-cyan-600 font-bold mb-8 transition-colors group"
+                    className="flex items-center gap-3 text-[#8D6E63] hover:text-[#5D4037] font-bold text-[10px] tracking-[0.3em] uppercase mb-12 transition-colors group"
                 >
-                    <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-                    Back to Selection
+                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-2 transition-transform" />
+                    Return to Collection
                 </button>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-20">
                     {/* Left Side: Images and Description */}
-                    <div className="lg:col-span-2 space-y-10">
+                    <div className="lg:col-span-2 space-y-16">
                         {/* Image Gallery */}
-                        <div className="relative h-[600px] rounded-[3rem] overflow-hidden shadow-2xl group border border-slate-100 bg-slate-200">
+                        <div className="relative h-[700px] overflow-hidden shadow-2xl group border border-[#E8E2D6] bg-white">
                             {images.length > 0 ? (
                                 <>
                                     <img 
                                         src={images[currentImageIndex]} 
-                                        className="w-full h-full object-cover transition-all duration-700 ease-in-out"
+                                        className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-1000 ease-in-out"
                                         alt={room.name}
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40"></div>
+                                    <div className="absolute inset-0 bg-gradient-to-b from-[#2C1D1A]/20 via-transparent to-[#2C1D1A]/40"></div>
                                     
                                     {images.length > 1 && (
                                         <>
                                             <button 
                                                 onClick={handlePrevImage}
-                                                className="absolute left-6 top-1/2 -translate-y-1/2 p-4 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white hover:text-slate-900 transition-all opacity-0 group-hover:opacity-100"
+                                                className="absolute left-8 top-1/2 -translate-y-1/2 p-6 bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white hover:text-[#2C1D1A] transition-all opacity-0 group-hover:opacity-100"
                                             >
                                                 <ChevronLeft className="w-6 h-6" />
                                             </button>
                                             <button 
                                                 onClick={handleNextImage}
-                                                className="absolute right-6 top-1/2 -translate-y-1/2 p-4 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white hover:text-slate-900 transition-all opacity-0 group-hover:opacity-100"
+                                                className="absolute right-8 top-1/2 -translate-y-1/2 p-6 bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white hover:text-[#2C1D1A] transition-all opacity-0 group-hover:opacity-100"
                                             >
                                                 <ChevronRight className="w-6 h-6" />
                                             </button>
                                         </>
                                     )}
 
-                                    <div className="absolute bottom-10 left-10 right-10 flex justify-center gap-3">
+                                    <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-4">
                                         {images.map((_, i) => (
                                             <button 
                                                 key={i} 
                                                 onClick={() => setCurrentImageIndex(i)}
-                                                className={`w-12 h-1.5 rounded-full transition-all ${i === currentImageIndex ? 'bg-cyan-500 scale-110' : 'bg-white/40'}`}
+                                                className={`h-1 transition-all duration-500 ${i === currentImageIndex ? 'w-16 bg-[#C5A059]' : 'w-8 bg-white/30 hover:bg-white/60'}`}
                                             />
                                         ))}
                                     </div>
                                 </>
                             ) : (
-                                <div className="w-full h-full flex flex-col items-center justify-center text-slate-400">
-                                    <BedDouble className="w-20 h-20 opacity-20 mb-4" />
-                                    <p className="font-bold tracking-widest text-xs uppercase opacity-40">Media Pending</p>
+                                <div className="w-full h-full flex flex-col items-center justify-center text-[#E8E2D6]">
+                                    <BedDouble className="w-24 h-24 opacity-20 mb-8" />
+                                    <p className="font-bold tracking-[0.4em] text-[10px] uppercase opacity-40">Records Pending</p>
                                 </div>
                             )}
                         </div>
 
                         {/* Description and Amenities */}
-                        <div className="bg-white p-12 rounded-[3.5rem] shadow-xl shadow-slate-200/50 border border-slate-100">
-                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 border-b border-slate-100 pb-10">
+                        <div className="bg-white p-16 border border-[#E8E2D6] shadow-xl">
+                            <div className="flex flex-col md:flex-row md:items-start justify-between gap-10 mb-16 border-b border-[#E8E2D6] pb-16">
                                 <div>
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <span className="px-4 py-1.5 bg-cyan-50 text-cyan-600 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border border-cyan-100">
-                                            {category?.name || 'Luxury'}
+                                    <div className="flex items-center gap-4 mb-6">
+                                        <span className="px-6 py-2 bg-[#5D4037] text-[#C5A059] text-[9px] font-bold uppercase tracking-[0.4em] border border-[#C5A059]/20">
+                                            {category?.name || 'Heritage Collection'}
                                         </span>
-                                        <div className="flex text-amber-500">
-                                            {[1,2,3,4,5].map(i => <Star key={i} className="w-4 h-4 fill-amber-500" />)}
+                                        <div className="flex text-[#C5A059]">
+                                            {[1,2,3,4,5].map(i => <Star key={i} className="w-4 h-4 fill-[#C5A059]" />)}
                                         </div>
                                     </div>
-                                    <h1 className="text-5xl font-black text-slate-900 leading-tight">{room.name}</h1>
+                                    <h1 className="text-6xl md:text-7xl font-serif font-black text-[#2C1D1A] leading-none mb-4">{room.name}</h1>
+                                    <p className="text-[#8D6E63] font-bold text-[10px] tracking-[0.4em] uppercase">Imperial Sanctuary ID: RS-{id?.padStart(3, '0')}</p>
                                 </div>
-                                <div className="text-right">
-                                    <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mb-1">Starting from</p>
-                                    <p className="text-4xl font-black text-slate-900">Rs. {room.rate?.toLocaleString()}<span className="text-lg font-medium text-slate-400">/night</span></p>
+                                <div className="md:text-right">
+                                    <p className="text-[10px] text-[#8D6E63] font-bold uppercase tracking-[0.3em] mb-2">Heritage Worth</p>
+                                    <p className="text-5xl font-serif font-black text-[#2C1D1A]">LKR {room.rate?.toLocaleString()}<span className="text-sm font-bold text-[#8D6E63] uppercase tracking-widest ml-2">/night</span></p>
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-                                <div className="space-y-2">
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Max Capacity</p>
-                                    <div className="flex items-center gap-2 text-slate-800 font-bold">
-                                        <Users className="w-5 h-5 text-cyan-500" />
-                                        {room.capacity} Persons
+                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+                                <div className="space-y-4 group">
+                                    <Users className="w-6 h-6 text-[#C5A059]" />
+                                    <div>
+                                        <p className="text-[9px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] mb-1">Noble Capacity</p>
+                                        <p className="text-xl font-serif font-bold text-[#2C1D1A]">{room.capacity} Distinguished Guests</p>
                                     </div>
                                 </div>
-                               
+                                <div className="space-y-4 group">
+                                    <Crown className="w-6 h-6 text-[#C5A059]" />
+                                    <div>
+                                        <p className="text-[9px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] mb-1">Sanctuary Type</p>
+                                        <p className="text-xl font-serif font-bold text-[#2C1D1A]">{category?.name || 'Elite'}</p>
+                                    </div>
+                                </div>
+                                <div className="space-y-4 group">
+                                    <Compass className="w-6 h-6 text-[#C5A059]" />
+                                    <div>
+                                        <p className="text-[9px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] mb-1">Vista orientation</p>
+                                        <p className="text-xl font-serif font-bold text-[#2C1D1A]">Oceanic Horizon</p>
+                                    </div>
+                                </div>
+                                <div className="space-y-4 group">
+                                    <Anchor className="w-6 h-6 text-[#C5A059]" />
+                                    <div>
+                                        <p className="text-[9px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] mb-1">Services</p>
+                                        <p className="text-xl font-serif font-bold text-[#2C1D1A]">Full Concierge</p>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div className="space-y-6">
-                                <h3 className="text-xl font-black text-slate-900">Room Overview</h3>
-                                <p className="text-slate-500 leading-relaxed text-lg italic">
+                            <div className="space-y-10">
+                                <div className="flex items-center gap-6">
+                                     <div className="h-px bg-[#C5A059] flex-1"></div>
+                                     <h3 className="text-xs font-bold text-[#C5A059] tracking-[0.5em] uppercase text-center">Sanctuary Overview</h3>
+                                     <div className="h-px bg-[#C5A059] flex-1"></div>
+                                </div>
+                                <p className="text-[#6D5B57] leading-relaxed text-xl italic font-medium">
                                     {room.description || "Designed for ultimate relaxation, this sanctuary offers a masterfully curated layout, premium linens, and floor-to-ceiling windows that capture the magic of the island landscape. Experience a stay where silence is the only soundtrack."}
                                 </p>
-                                <div className="flex flex-wrap gap-3">
+                                <div className="flex flex-wrap gap-4 pt-10">
                                     {room.amenities?.map((amenity, i) => (
-                                        <span key={i} className="px-5 py-2.5 bg-slate-50 border border-slate-100 rounded-2xl text-sm font-semibold text-slate-600 flex items-center gap-2">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-cyan-500"></div>
+                                        <span key={i} className="px-8 py-4 bg-[#FAF9F6] border border-[#E8E2D6] text-[10px] font-bold uppercase tracking-[0.2em] text-[#5D4037] flex items-center gap-3">
+                                            <Gem className="w-3 h-3 text-[#C5A059]" />
                                             {amenity}
                                         </span>
                                     ))}
@@ -257,39 +286,43 @@ const RoomDetails = () => {
 
                     {/* Right Side: Booking Form */}
                     <div className="lg:col-span-1">
-                        <div className="bg-white p-10 rounded-[3.5rem] shadow-2xl shadow-slate-200 border border-slate-100 sticky top-32">
-                            <div className="flex items-center gap-4 mb-8">
-                                <div className="p-3 bg-slate-900 text-white rounded-2xl">
+                        <div className="bg-[#2C1D1A] p-12 shadow-2xl sticky top-48 border border-[#C5A059]/20">
+                            <div className="flex items-center gap-6 mb-12 border-b border-[#C5A059]/20 pb-8">
+                                <div className="p-4 bg-[#C5A059] text-[#2C1D1A]">
                                     <Calendar className="w-6 h-6" />
                                 </div>
                                 <div>
-                                    <h2 className="text-2xl font-black text-slate-800 tracking-tight">Reserve Stay</h2>
-                                    <p className="text-xs text-slate-400 font-bold tracking-widest uppercase mt-1">Check Availability</p>
+                                    <h2 className="text-2xl font-serif font-bold text-white tracking-wide">Reserve Stay</h2>
+                                    <p className="text-[9px] text-[#C5A059] font-bold tracking-[0.3em] uppercase mt-2">Royal Registry</p>
                                 </div>
                             </div>
 
-                            <form onSubmit={handleBookingSubmit} className="space-y-6">
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Check In</label>
+                            <form onSubmit={handleBookingSubmit} className="space-y-8">
+                                <div className="grid grid-cols-1 gap-8">
+                                    <div className="space-y-3">
+                                        <label className="text-[9px] font-bold text-[#C5A059] uppercase tracking-[0.3em] ml-1 flex items-center gap-2">
+                                            Arrival Date
+                                        </label>
                                         <input 
                                             type="date" 
                                             required
                                             min={new Date().toISOString().split('T')[0]}
                                             value={bookingData.checkIn}
                                             onChange={(e) => handleDateChange('checkIn', e.target.value)}
-                                            className="w-full px-4 py-4 bg-slate-50 rounded-2xl border border-slate-100 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 transition-all outline-none font-bold text-slate-700"
+                                            className="w-full px-6 py-5 bg-white/5 border border-white/10 text-white focus:border-[#C5A059] transition-all outline-none font-bold text-sm tracking-widest"
                                         />
                                     </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Check Out</label>
+                                    <div className="space-y-3">
+                                        <label className="text-[9px] font-bold text-[#C5A059] uppercase tracking-[0.3em] ml-1 flex items-center gap-2">
+                                            Departure Date
+                                        </label>
                                         <input 
                                             type="date" 
                                             required
                                             min={bookingData.checkIn || new Date().toISOString().split('T')[0]}
                                             value={bookingData.checkOut}
                                             onChange={(e) => handleDateChange('checkOut', e.target.value)}
-                                            className="w-full px-4 py-4 bg-slate-50 rounded-2xl border border-slate-100 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 transition-all outline-none font-bold text-slate-700"
+                                            className="w-full px-6 py-5 bg-white/5 border border-white/10 text-white focus:border-[#C5A059] transition-all outline-none font-bold text-sm tracking-widest"
                                         />
                                     </div>
                                 </div>
@@ -298,94 +331,94 @@ const RoomDetails = () => {
                                     type="button"
                                     onClick={checkAvailability}
                                     disabled={!bookingData.checkIn || !bookingData.checkOut || availabilityStatus === 'checking'}
-                                    className="w-full py-4 border-2 border-slate-900 text-slate-900 rounded-2xl font-black text-sm hover:bg-slate-900 hover:text-white transition-all disabled:opacity-40"
+                                    className="w-full py-5 bg-transparent border border-[#C5A059] text-[#C5A059] font-bold text-[10px] tracking-[0.3em] uppercase hover:bg-[#C5A059] hover:text-[#2C1D1A] transition-all disabled:opacity-30"
                                 >
-                                    {availabilityStatus === 'checking' ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'Check Availability'}
+                                    {availabilityStatus === 'checking' ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : 'Consult Registry'}
                                 </button>
 
                                 {availabilityStatus === 'available' && (
-                                    <div className="space-y-6 animate-in fade-in slide-in-from-top-4 duration-500">
-                                        <div className="p-4 bg-emerald-50 text-emerald-700 rounded-2xl border border-emerald-100 flex items-center gap-3 text-sm font-bold">
-                                            <CheckCircle2 className="w-5 h-5" />
-                                            Great! dates are available.
+                                    <div className="space-y-10 animate-in fade-in slide-in-from-top-6 duration-700 pt-8">
+                                        <div className="p-6 bg-emerald-950/30 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold tracking-[0.2em] uppercase flex items-center gap-4">
+                                            <CheckCircle2 className="w-4 h-4" />
+                                            Dates are vacant
                                         </div>
 
-                                        <div className="space-y-4">
-                                            <div className="relative">
-                                                <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                                        <div className="space-y-6">
+                                            <div className="relative group">
+                                                <MapPin className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C5A059]" />
                                                 <input 
                                                     type="text" 
                                                     placeholder="Physical Address" 
                                                     required
                                                     value={bookingData.guestAddress}
                                                     onChange={(e) => setBookingData({...bookingData, guestAddress: e.target.value})}
-                                                    className="w-full pl-12 pr-4 py-4 bg-slate-50 rounded-2xl border border-slate-100 focus:border-cyan-500 outline-none font-medium"
+                                                    className="w-full pl-14 pr-6 py-5 bg-white/5 border border-white/10 text-white focus:border-[#C5A059] outline-none text-xs tracking-wider"
                                                 />
                                             </div>
-                                            <div className="relative">
-                                                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                                            <div className="relative group">
+                                                <Phone className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C5A059]" />
                                                 <input 
                                                     type="tel" 
-                                                    placeholder="Contact Number" 
+                                                    placeholder="Noble Contact Number" 
                                                     required
                                                     value={bookingData.guestPhone}
                                                     onChange={(e) => setBookingData({...bookingData, guestPhone: e.target.value})}
-                                                    className="w-full pl-12 pr-4 py-4 bg-slate-50 rounded-2xl border border-slate-100 focus:border-cyan-500 outline-none font-medium"
+                                                    className="w-full pl-14 pr-6 py-5 bg-white/5 border border-white/10 text-white focus:border-[#C5A059] outline-none text-xs tracking-wider"
                                                 />
                                             </div>
-                                            <div className="relative">
-                                                <FileText className="absolute left-4 top-4 w-5 h-5 text-slate-400" />
+                                            <div className="relative group">
+                                                <FileText className="absolute left-6 top-6 w-4 h-4 text-[#C5A059]" />
                                                 <textarea 
-                                                    placeholder="Additional Requests (Optional)" 
+                                                    placeholder="Special Decrees or Requests" 
                                                     rows="3"
                                                     value={bookingData.notes}
                                                     onChange={(e) => setBookingData({...bookingData, notes: e.target.value})}
-                                                    className="w-full pl-12 pr-4 py-4 bg-slate-50 rounded-2xl border border-slate-100 focus:border-cyan-500 outline-none font-medium resize-none"
+                                                    className="w-full pl-14 pr-6 py-5 bg-white/5 border border-white/10 text-white focus:border-[#C5A059] outline-none text-xs tracking-wider resize-none"
                                                 ></textarea>
                                             </div>
                                         </div>
 
-                                        <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 space-y-3">
-                                            <div className="flex justify-between items-center text-sm font-bold text-slate-500">
-                                                <span>Total Estimation</span>
-                                                <span>LKR {totalPrice.toLocaleString()}</span>
+                                        <div className="p-8 bg-white/5 border border-white/10 space-y-4">
+                                            <div className="flex justify-between items-center text-[10px] font-bold text-white/50 uppercase tracking-widest">
+                                                <span>Estimated Worth</span>
+                                                <span className="text-white">LKR {totalPrice.toLocaleString()}</span>
                                             </div>
-                                            <div className="flex justify-between items-center text-sm font-bold text-slate-500">
-                                                <span>Tax & Service</span>
-                                                <span className="text-emerald-600">INCLUDED</span>
+                                            <div className="flex justify-between items-center text-[10px] font-bold text-white/50 uppercase tracking-widest">
+                                                <span>Royal Tax</span>
+                                                <span className="text-[#C5A059]">Included</span>
                                             </div>
-                                            <div className="h-px bg-slate-200 mt-2"></div>
-                                            <div className="flex justify-between items-center pt-2">
-                                                <span className="font-black text-slate-800">Final Price</span>
-                                                <span className="text-2xl font-black text-slate-900 font-mono tracking-tighter">LKR {totalPrice.toLocaleString()}</span>
+                                            <div className="h-px bg-white/10 my-4"></div>
+                                            <div className="flex justify-between items-center">
+                                                <span className="font-bold text-white text-xs uppercase tracking-[0.2em]">Final Sum</span>
+                                                <span className="text-3xl font-serif font-black text-[#C5A059]">LKR {totalPrice.toLocaleString()}</span>
                                             </div>
                                         </div>
 
                                         <button 
                                             type="submit" 
                                             disabled={bookingStatus === 'submitting'}
-                                            className="w-full bg-slate-900 text-white py-5 rounded-[2rem] font-black text-lg hover:bg-cyan-600 transition-all shadow-2xl flex items-center justify-center gap-3 active:scale-95"
+                                            className="w-full bg-[#C5A059] text-[#2C1D1A] py-6 font-bold text-[11px] uppercase tracking-[0.4em] hover:bg-white hover:text-[#2C1D1A] transition-all shadow-2xl flex items-center justify-center gap-4"
                                         >
-                                            {bookingStatus === 'submitting' ? <Loader2 className="w-6 h-6 animate-spin" /> : (
+                                            {bookingStatus === 'submitting' ? <Loader2 className="w-5 h-5 animate-spin" /> : (
                                                 <>
-                                                    Confirm Booking
-                                                    <CreditCard className="w-5 h-5" />
+                                                    Seal Reservation
+                                                    <CreditCard className="w-4 h-4" />
                                                 </>
                                             )}
                                         </button>
                                         
                                         {bookingStatus === 'success' && (
-                                            <p className="text-center text-emerald-600 font-black text-sm animate-bounce">
-                                                Booking successful! Redirecting...
+                                            <p className="text-center text-emerald-400 font-bold text-[10px] tracking-[0.2em] uppercase animate-pulse">
+                                                Registry updated. Preparing your arrival...
                                             </p>
                                         )}
                                     </div>
                                 )}
 
                                 {availabilityStatus === 'unavailable' && (
-                                    <div className="p-5 bg-rose-50 text-rose-700 rounded-3xl border border-rose-100 flex items-center gap-3 text-sm font-bold animate-in fade-in slide-in-from-top-4">
+                                    <div className="p-8 bg-rose-950/30 border border-rose-500/30 text-rose-400 text-[10px] font-bold tracking-[0.2em] uppercase flex items-center gap-4">
                                         <AlertCircle className="w-10 h-10" />
-                                        Selected dates are already booked. Please try another period.
+                                        This sanctuary is occupied during selected dates.
                                     </div>
                                 )}
                             </form>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Star, Send, MessageCircle, Quote } from 'lucide-react';
+import { Star, Send, MessageCircle, Quote, Crown, Gem, Sparkles, Loader2 } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -51,11 +51,11 @@ const Feedbacks = () => {
             });
 
             if (response.ok) {
-                setMessage({ type: 'success', text: 'Thank you! Your feedback has been submitted and is pending approval.' });
+                setMessage({ type: 'success', text: 'Thank you! Your testament has been recorded and is pending royal approval.' });
                 setComment('');
                 setRating(5);
             } else {
-                setMessage({ type: 'error', text: 'Failed to submit feedback. Please try again.' });
+                setMessage({ type: 'error', text: 'Failed to record testament. Please try again.' });
             }
         } catch (error) {
             setMessage({ type: 'error', text: 'An error occurred. Please try again later.' });
@@ -65,37 +65,47 @@ const Feedbacks = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-[#FAF9F6]">
             <Header />
             
             {/* Hero Section */}
-            <div className="pt-32 pb-16 bg-gradient-to-br from-cyan-600 to-blue-700 text-white">
-                <div className="container mx-auto px-6 text-center">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">Guest Experiences</h1>
-                    <p className="text-xl text-cyan-100 max-w-2xl mx-auto">
-                        Hear what our guests have to say about their stay at Ocean View Resort.
+            <div className="pt-48 pb-24 bg-[#2C1D1A] text-white relative overflow-hidden">
+                <div className="absolute inset-0 opacity-10">
+                    <div className="absolute top-0 left-0 w-96 h-96 border border-[#C5A059] rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+                    <div className="absolute bottom-0 right-0 w-96 h-96 border border-[#C5A059] rounded-full translate-x-1/2 translate-y-1/2"></div>
+                </div>
+                <div className="container mx-auto px-6 text-center relative z-10">
+                    <div className="inline-flex items-center gap-2 text-[#C5A059] font-bold text-[10px] tracking-[0.5em] uppercase mb-6">
+                        <Crown className="w-4 h-4" /> Guest Testaments
+                    </div>
+                    <h1 className="text-6xl md:text-8xl font-serif font-black mb-6 italic tracking-tighter">Noble <span className="text-[#C5A059]">Experiences</span></h1>
+                    <p className="text-xl text-[#E3C184] max-w-2xl mx-auto font-medium italic">
+                        Chronicle of the grand stays and cherished memories at Ocean View Resort.
                     </p>
                 </div>
             </div>
 
-            <div className="container mx-auto px-6 py-12">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div className="container mx-auto px-6 py-24">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-20">
                     
                     {/* Feedback Form Section */}
                     <div className="lg:col-span-1">
-                        <div className="bg-white rounded-2xl shadow-xl p-8 sticky top-32">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="p-3 bg-cyan-100 rounded-lg">
-                                    <MessageCircle className="text-cyan-600 w-6 h-6" />
+                        <div className="bg-white border border-[#E8E2D6] p-12 sticky top-48 shadow-xl">
+                            <div className="flex items-center gap-4 mb-10 border-b border-[#E8E2D6] pb-8">
+                                <div className="p-4 bg-[#5D4037] text-[#C5A059]">
+                                    <Sparkles className="w-6 h-6" />
                                 </div>
-                                <h2 className="text-2xl font-bold text-slate-800">Share Your Experience</h2>
+                                <div>
+                                    <h2 className="text-2xl font-serif font-bold text-[#2C1D1A]">Share Your Story</h2>
+                                    <p className="text-[10px] text-[#C5A059] font-bold tracking-[0.3em] uppercase mt-1">Record Experience</p>
+                                </div>
                             </div>
 
                             {user ? (
-                                <form onSubmit={handleSubmit} className="space-y-6">
-                                    <div>
-                                        <label className="block text-sm font-semibold text-slate-700 mb-2">Rating</label>
-                                        <div className="flex gap-2">
+                                <form onSubmit={handleSubmit} className="space-y-8">
+                                    <div className="space-y-4">
+                                        <label className="text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] ml-1">Sanctuary Rating</label>
+                                        <div className="flex gap-4">
                                             {[1, 2, 3, 4, 5].map((star) => (
                                                 <button
                                                     key={star}
@@ -105,7 +115,7 @@ const Feedbacks = () => {
                                                 >
                                                     <Star
                                                         className={`w-8 h-8 ${
-                                                            star <= rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-300'
+                                                            star <= rating ? 'text-[#C5A059] fill-[#C5A059]' : 'text-[#E8E2D6]'
                                                         }`}
                                                     />
                                                 </button>
@@ -113,21 +123,21 @@ const Feedbacks = () => {
                                         </div>
                                     </div>
 
-                                    <div>
-                                        <label className="block text-sm font-semibold text-slate-700 mb-2">Your Experience</label>
+                                    <div className="space-y-4">
+                                        <label className="text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] ml-1">Your Chronicle</label>
                                         <textarea
                                             value={comment}
                                             onChange={(e) => setComment(e.target.value)}
                                             required
-                                            rows="4"
-                                            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all resize-none"
-                                            placeholder="Tell us about your stay..."
+                                            rows="5"
+                                            className="w-full px-6 py-5 bg-[#FAF9F6] border border-[#E8E2D6] text-[#2C1D1A] focus:border-[#C5A059] outline-none transition-all resize-none font-medium text-sm italic leading-relaxed"
+                                            placeholder="Write your story of leisure..."
                                         />
                                     </div>
 
                                     {message.text && (
-                                        <div className={`p-4 rounded-xl text-sm ${
-                                            message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
+                                        <div className={`p-6 text-[10px] font-bold tracking-[0.1em] uppercase ${
+                                            message.type === 'success' ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' : 'bg-rose-50 text-rose-700 border border-rose-100'
                                         }`}>
                                             {message.text}
                                         </div>
@@ -136,21 +146,21 @@ const Feedbacks = () => {
                                     <button
                                         type="submit"
                                         disabled={submitting}
-                                        className="w-full btn-gradient py-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/30 disabled:opacity-50"
+                                        className="w-full bg-[#5D4037] text-white py-5 font-bold text-[10px] tracking-[0.3em] uppercase hover:bg-[#2C1D1A] transition-all duration-500 shadow-2xl flex items-center justify-center gap-4 disabled:opacity-50"
                                     >
-                                        {submitting ? 'Submitting...' : (
+                                        {submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : (
                                             <>
-                                                <Send className="w-5 h-5" />
-                                                Submit Feedback
+                                                Submit Testament
+                                                <Send className="w-4 h-4" />
                                             </>
                                         )}
                                     </button>
                                 </form>
                             ) : (
-                                <div className="text-center py-8">
-                                    <p className="text-slate-600 mb-6 font-medium">Please sign in to share your experience with us.</p>
-                                    <a href="/login" className="inline-block btn-gradient px-8 py-3 rounded-xl font-bold shadow-lg shadow-cyan-500/30">
-                                        Sign In Now
+                                <div className="text-center py-12">
+                                    <p className="text-[#6D5B57] mb-8 font-medium italic">Please sign in to your sanctuary account to share your noble experience with us.</p>
+                                    <a href="/login" className="inline-block bg-[#5D4037] text-white px-10 py-5 font-bold text-[10px] tracking-[0.3em] uppercase hover:bg-[#2C1D1A] transition-all duration-500 shadow-xl">
+                                        Identify Yourself
                                     </a>
                                 </div>
                             )}
@@ -158,33 +168,33 @@ const Feedbacks = () => {
                     </div>
 
                     {/* Feedbacks List Section */}
-                    <div className="lg:col-span-2 space-y-8">
+                    <div className="lg:col-span-2 space-y-12">
                         {loading ? (
-                            <div className="flex justify-center items-center py-20">
-                                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-600"></div>
+                            <div className="flex justify-center items-center py-40">
+                                <Loader2 className="animate-spin h-12 w-12 text-[#C5A059]" />
                             </div>
                         ) : feedbacks.length > 0 ? (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                                 {feedbacks.map((f) => (
-                                    <div key={f.id} className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow relative">
-                                        <Quote className="absolute top-4 right-4 text-cyan-50 w-12 h-12 -z-0" />
+                                    <div key={f.id} className="bg-white p-12 border border-[#E8E2D6] hover:border-[#C5A059] transition-all duration-700 shadow-sm hover:shadow-2xl relative group">
+                                        <Quote className="absolute top-8 right-8 text-[#C5A059]/10 w-16 h-16 transition-transform group-hover:scale-110" />
                                         <div className="relative z-10">
-                                            <div className="flex gap-1 mb-4">
+                                            <div className="flex gap-2 mb-8">
                                                 {[...Array(5)].map((_, i) => (
                                                     <Star
                                                         key={i}
-                                                        className={`w-4 h-4 ${i < f.rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-200'}`}
+                                                        className={`w-3 h-3 ${i < f.rating ? 'text-[#C5A059] fill-[#C5A059]' : 'text-[#E8E2D6]'}`}
                                                     />
                                                 ))}
                                             </div>
-                                            <p className="text-slate-700 mb-6 italic leading-relaxed">"{f.comment}"</p>
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 bg-cyan-100 rounded-full flex items-center justify-center text-cyan-600 font-bold">
+                                            <p className="text-[#6D5B57] text-lg mb-10 italic leading-relaxed font-medium">"{f.comment}"</p>
+                                            <div className="flex items-center gap-5 pt-8 border-t border-[#E8E2D6]">
+                                                <div className="w-14 h-14 bg-[#5D4037] text-[#C5A059] border border-[#C5A059]/30 flex items-center justify-center font-serif font-black text-xl shadow-lg">
                                                     {f.userName.charAt(0)}
                                                 </div>
                                                 <div>
-                                                    <h4 className="font-bold text-slate-800">{f.userName}</h4>
-                                                    <p className="text-xs text-slate-500">{new Date(f.createdAt).toLocaleDateString()}</p>
+                                                    <h4 className="font-serif font-bold text-[#2C1D1A] text-xl tracking-wide">{f.userName}</h4>
+                                                    <p className="text-[9px] text-[#C5A059] font-bold uppercase tracking-[0.4em] mt-1">Distinguished Guest</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -192,10 +202,10 @@ const Feedbacks = () => {
                                 ))}
                             </div>
                         ) : (
-                            <div className="bg-white p-12 rounded-2xl text-center border-2 border-dashed border-slate-200">
-                                <MessageCircle className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-                                <h3 className="text-xl font-bold text-slate-800 mb-2">No feedbacks yet</h3>
-                                <p className="text-slate-500 font-medium">Be the first one to share your experience!</p>
+                            <div className="bg-white p-24 text-center border border-[#E8E2D6]">
+                                <MessageCircle className="w-20 h-20 text-[#E8E2D6] mx-auto mb-8" />
+                                <h3 className="text-3xl font-serif font-bold text-[#2C1D1A] mb-4">The Chronicle is Empty</h3>
+                                <p className="text-[#8D6E63] font-medium italic">Be the primary guest to record your testament of luxury!</p>
                             </div>
                         )}
                     </div>

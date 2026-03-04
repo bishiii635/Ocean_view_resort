@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { Mail, Phone, MapPin, Send, MessageCircle, HelpCircle, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageCircle, HelpCircle, AlertCircle, CheckCircle2, Loader2, Crown, Sparkles, Compass, Anchor } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -30,148 +30,155 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-[#FAF9F6] font-sans">
       <Header />
       
       {/* Hero Section */}
-      <div className="pt-32 pb-20 bg-gradient-to-br from-slate-900 via-slate-800 to-cyan-900 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1551882547-ff43c636a224?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] opacity-20 bg-cover bg-center"></div>
+      <div className="pt-48 pb-32 bg-[#2C1D1A] text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1551882547-ff43c636a224?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] opacity-10 bg-cover bg-center grayscale"></div>
         <div className="container mx-auto px-6 relative z-10 text-center">
-          <h1 className="text-5xl md:text-6xl font-black mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700">Get in Touch</h1>
-          <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Have questions about our resort or need assistance with your booking? Our team is here to help you experience paradise.
+            <div className="inline-flex items-center gap-2 text-[#C5A059] font-bold text-[10px] tracking-[0.5em] uppercase mb-8">
+                <Crown className="w-5 h-5" /> The Royal Concierge
+            </div>
+          <h1 className="text-6xl md:text-8xl font-serif font-black mb-10 italic tracking-tighter">Summon Assistance</h1>
+          <p className="text-xl text-[#E3C184] max-w-2xl mx-auto leading-relaxed italic font-medium">
+            Our master of ceremonies and private consultants are at your absolute disposal. Let us curate your journey to the finest detail.
           </p>
         </div>
       </div>
 
-      <div className="container mx-auto px-6 -mt-16 relative z-20 pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="container mx-auto px-6 -mt-24 relative z-20 pb-40">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           
           {/* Contact Info Cards */}
-          <div className="lg:col-span-1 space-y-6">
-            <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 hover:scale-[1.02] transition-transform duration-300">
-              <div className="w-14 h-14 bg-cyan-50 text-cyan-600 rounded-2xl flex items-center justify-center mb-6">
-                <Mail className="w-7 h-7" />
+          <div className="lg:col-span-1 space-y-10">
+            <div className="bg-white p-12 border border-[#E8E2D6] shadow-xl hover:border-[#C5A059] transition-all duration-500 group">
+              <div className="w-16 h-16 bg-[#5D4037] text-[#C5A059] flex items-center justify-center mb-10 group-hover:rotate-[360deg] transition-transform duration-700">
+                <Mail className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-bold text-slate-800 mb-2">Email Us</h3>
-              <p className="text-slate-500 mb-4">Drop us a line anytime</p>
-              <a href="mailto:hello@oceanview.com" className="text-cyan-600 font-bold hover:underline text-lg">hello@oceanview.com</a>
+              <h3 className="text-2xl font-serif font-bold text-[#2C1D1A] mb-4">Letter Of Inquiry</h3>
+              <p className="text-[#8D6E63] font-bold text-[10px] tracking-[0.2em] uppercase mb-6">Dispatch an electronic missive</p>
+              <a href="mailto:concierge@oceanview.com" className="text-[#5D4037] font-serif font-black text-xl hover:text-[#C5A059] transition-colors leading-none block border-b-2 border-[#E8E2D6] pb-2 w-fit">concierge@oceanview.com</a>
             </div>
 
-            <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 hover:scale-[1.02] transition-transform duration-300">
-              <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-6">
-                <Phone className="w-7 h-7" />
+            <div className="bg-white p-12 border border-[#E8E2D6] shadow-xl hover:border-[#C5A059] transition-all duration-500 group">
+              <div className="w-16 h-16 bg-[#5D4037] text-[#C5A059] flex items-center justify-center mb-10 group-hover:scale-110 transition-transform duration-500">
+                <Phone className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-bold text-slate-800 mb-2">Call Us</h3>
-              <p className="text-slate-500 mb-4">Mon-Sun, 24/7 Support</p>
-              <a href="tel:+94112345678" className="text-emerald-600 font-bold hover:underline text-lg">+94 11 234 5678</a>
+              <h3 className="text-2xl font-serif font-bold text-[#2C1D1A] mb-4">Direct Communication</h3>
+              <p className="text-[#8D6E63] font-bold text-[10px] tracking-[0.2em] uppercase mb-6">Available 24/7 Royal Support</p>
+              <a href="tel:+94112345678" className="text-[#5D4037] font-serif font-black text-xl hover:text-[#C5A059] transition-colors leading-none block border-b-2 border-[#E8E2D6] pb-2 w-fit">+94 11 234 5678</a>
             </div>
 
-            <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 hover:scale-[1.02] transition-transform duration-300">
-              <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6">
-                <MapPin className="w-7 h-7" />
+            <div className="bg-white p-12 border border-[#E8E2D6] shadow-xl hover:border-[#C5A059] transition-all duration-500 group">
+              <div className="w-16 h-16 bg-[#5D4037] text-[#C5A059] flex items-center justify-center mb-10">
+                <Anchor className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-bold text-slate-800 mb-2">Location</h3>
-              <p className="text-slate-500 mb-4">Visit our paradise</p>
-              <p className="text-slate-800 font-bold">123 Coastal Road, Galle, Sri Lanka</p>
+              <h3 className="text-2xl font-serif font-bold text-[#2C1D1A] mb-4">The Estate Location</h3>
+              <p className="text-[#8D6E63] font-bold text-[10px] tracking-[0.2em] uppercase mb-6">Visit our southern sanctuary</p>
+              <p className="text-[#2C1D1A] font-serif font-black text-xl leading-relaxed">No. 123, Ancient Ivory Path, <br/> Galle, Southern Province, Sri Lanka</p>
             </div>
           </div>
 
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <div className="bg-white p-10 md:p-12 rounded-[3rem] shadow-2xl shadow-slate-200/60 border border-slate-100 h-full">
-              <div className="flex items-center gap-4 mb-10">
-                <div className="p-3 bg-slate-900 text-white rounded-2xl shadow-lg">
-                  <MessageCircle className="w-7 h-7" />
+            <div className="bg-white p-16 md:p-24 border border-[#E8E2D6] shadow-2xl h-full relative group">
+              <div className="absolute top-0 right-0 w-40 h-40 border-r-2 border-t-2 border-[#C5A059]/30 translate-x-4 -translate-y-4"></div>
+              
+              <div className="flex items-center gap-6 mb-16">
+                <div className="p-4 bg-[#2C1D1A] text-[#C5A059]">
+                  <Sparkles className="w-8 h-8" />
                 </div>
                 <div>
-                  <h2 className="text-3xl font-black text-slate-800">Send a Message</h2>
-                  <p className="text-slate-400 font-medium">We usually respond within 2 hours</p>
+                  <h2 className="text-4xl font-serif font-bold text-[#2C1D1A] tracking-tight">Dispatch Your Requests</h2>
+                  <p className="text-[#8D6E63] font-bold text-[10px] tracking-[0.3em] uppercase mt-2 italic">A response will be prepared with royal efficiency.</p>
                 </div>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700 uppercase tracking-widest ml-1">Your Name</label>
+              <form onSubmit={handleSubmit} className="space-y-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                  <div className="space-y-4">
+                    <label className="text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] ml-1">Distinguished Name</label>
                     <input 
                       type="text" 
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      className="w-full px-6 py-4 bg-slate-50 rounded-2xl border border-slate-100 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 transition-all outline-none"
-                      placeholder="John Doe"
+                      className="w-full px-8 py-5 bg-[#FAF9F6] border border-[#E8E2D6] focus:border-[#C5A059] transition-all outline-none font-bold text-sm tracking-widest text-[#2C1D1A]"
+                      placeholder="e.g. Lord John Doe"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700 uppercase tracking-widest ml-1">Email Address</label>
+                  <div className="space-y-4">
+                    <label className="text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] ml-1">Communication Channel</label>
                     <input 
                       type="email" 
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      className="w-full px-6 py-4 bg-slate-50 rounded-2xl border border-slate-100 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 transition-all outline-none"
-                      placeholder="john@example.com"
+                      className="w-full px-8 py-5 bg-[#FAF9F6] border border-[#E8E2D6] focus:border-[#C5A059] transition-all outline-none font-bold text-sm tracking-widest text-[#2C1D1A]"
+                      placeholder="address@heritage.com"
                     />
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-700 uppercase tracking-widest ml-1">Subject</label>
+                <div className="space-y-4">
+                  <label className="text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] ml-1">The Essence of Inquiry</label>
                   <input 
                     type="text" 
                     required
                     value={formData.subject}
                     onChange={(e) => setFormData({...formData, subject: e.target.value})}
-                    className="w-full px-6 py-4 bg-slate-50 rounded-2xl border border-slate-100 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 transition-all outline-none"
-                    placeholder="Booking Inquiry"
+                    className="w-full px-8 py-5 bg-[#FAF9F6] border border-[#E8E2D6] focus:border-[#C5A059] transition-all outline-none font-bold text-sm tracking-widest text-[#2C1D1A]"
+                    placeholder="Sanctuary Reservation Missive"
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-700 uppercase tracking-widest ml-1">How can we help?</label>
+                <div className="space-y-4">
+                  <label className="text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] ml-1">Your Detailed Requests</label>
                   <textarea 
                     required
-                    rows="5"
+                    rows="6"
                     value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
-                    className="w-full px-6 py-4 bg-slate-50 rounded-2xl border border-slate-100 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 transition-all outline-none resize-none"
-                    placeholder="Write your message here..."
+                    className="w-full px-8 py-5 bg-[#FAF9F6] border border-[#E8E2D6] focus:border-[#C5A059] transition-all outline-none resize-none font-medium text-lg italic tracking-wide text-[#5D4037] leading-relaxed"
+                    placeholder="Elaborate upon your requirements here..."
                   ></textarea>
                 </div>
 
-                <button 
-                  type="submit" 
-                  disabled={status === 'loading'}
-                  className="w-full bg-slate-900 text-white py-5 rounded-3xl font-black text-lg hover:bg-slate-800 transition-all shadow-xl shadow-slate-200 flex items-center justify-center gap-3 disabled:opacity-70 group"
-                >
-                  {status === 'loading' ? (
-                    <>
-                      <Loader2 className="w-6 h-6 animate-spin text-cyan-400" />
-                      Sending Message...
-                    </>
-                  ) : status === 'success' ? (
-                    <>
-                      <CheckCircle2 className="w-6 h-6 text-emerald-400" />
-                      Message Sent!
-                    </>
-                  ) : (
-                    <>
-                      Send Message
-                      <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </>
-                  )}
-                </button>
+                <div className="pt-8">
+                    <button 
+                    type="submit" 
+                    disabled={status === 'loading'}
+                    className="w-full bg-[#2C1D1A] text-white py-6 font-bold text-[11px] uppercase tracking-[0.5em] hover:bg-[#5D4037] hover:text-[#C5A059] transition-all duration-500 shadow-2xl flex items-center justify-center gap-4 group"
+                    >
+                    {status === 'loading' ? (
+                        <>
+                        <Loader2 className="w-5 h-5 animate-spin text-[#C5A059]" />
+                        Dispatching Missive...
+                        </>
+                    ) : status === 'success' ? (
+                        <>
+                        <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                        Inquiry Recorded!
+                        </>
+                    ) : (
+                        <>
+                        Dispatch missive
+                        <Send className="w-4 h-4 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500" />
+                        </>
+                    )}
+                    </button>
+                </div>
                 
                 {status === 'success' && (
-                  <p className="text-center text-emerald-600 font-bold animate-in fade-in duration-500">
-                    Thank you! We've received your message and will get back to you soon.
+                  <p className="text-center text-emerald-600 font-bold text-[10px] uppercase tracking-[0.2em] animate-pulse">
+                    The concierge has received your request. Safe travels.
                   </p>
                 )}
                 {status === 'error' && (
-                  <p className="text-center text-rose-600 font-bold animate-in fade-in duration-500 flex items-center justify-center gap-2">
-                    <AlertCircle className="w-5 h-5" />
-                    Something went wrong. Please try again.
+                  <p className="text-center text-rose-600 font-bold text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-3">
+                    <AlertCircle className="w-4 h-4" />
+                    Dispatch interrupted. Please try again.
                   </p>
                 )}
               </form>

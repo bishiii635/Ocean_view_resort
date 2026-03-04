@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import { User, Mail, Lock, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import { User, Mail, Lock, Loader2, CheckCircle, AlertCircle, Crown, ShieldAlert } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -27,13 +27,13 @@ const Register = () => {
         setError('');
 
         if (password !== confirmPassword) {
-            setError('Passwords do not match');
+            setError('Cipher sequences do not match');
             setLoading(false);
             return;
         }
 
         if (password.length < 8) {
-             setError('Password must be at least 8 characters long');
+             setError('Cipher must be at least 8 characters long');
              setLoading(false);
              return;
         }
@@ -46,124 +46,122 @@ const Register = () => {
                 navigate('/profile');
             }, 1500);
         } catch (err) {
-            setError(err.response?.data?.error || 'Registration failed. Please try again.');
+            setError(err.response?.data?.error || 'Registry enrollment failed. Please try again.');
             setLoading(false);
         }
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col justify-between">
+        <div className="min-h-screen bg-[#FAF9F6] flex flex-col justify-between font-sans">
             <Header />
             
-            <main className="flex-1 flex items-center justify-center p-6 pt-24 md:pt-32">
-                <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8 border border-slate-100 animate-in fade-in zoom-in-95 duration-300 relative overflow-hidden">
-                    {/* Background decoration */}
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-50 rounded-full blur-3xl opacity-50 -z-10 translate-x-12 -translate-y-12"></div>
+            <main className="flex-1 flex items-center justify-center p-6 pt-48 pb-20">
+                <div className="bg-white border border-[#E8E2D6] shadow-2xl w-full max-w-md p-12 relative animate-in fade-in zoom-in-95 duration-700">
+                    <div className="absolute top-0 right-0 w-24 h-24 border-r-2 border-t-2 border-[#C5A059]/20 translate-x-3 -translate-y-3"></div>
                     
-                    <div className="text-center mb-8">
-                        <h2 className="text-3xl font-bold text-slate-900 tracking-tight">Create Account</h2>
-                        <p className="text-slate-500 mt-2">Join us for a luxury experience</p>
+                    <div className="text-center mb-10">
+                        <div className="w-16 h-16 bg-[#5D4037] text-[#C5A059] flex items-center justify-center mx-auto mb-6">
+                            <Crown className="w-8 h-8" />
+                        </div>
+                        <h2 className="text-4xl font-serif font-black text-[#2C1D1A] tracking-tight">Noble Registry</h2>
+                        <p className="text-[#8D6E63] font-bold text-[9px] uppercase tracking-[0.4em] mt-3 italic">Establish Your Royal Identity</p>
                     </div>
 
                     {success ? (
-                        <div className="flex flex-col items-center justify-center py-12 animate-in fade-in transition-all">
-                            <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4">
-                                <CheckCircle className="w-8 h-8" />
+                        <div className="flex flex-col items-center justify-center py-16 animate-in fade-in transition-all">
+                            <div className="w-20 h-20 bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center mb-8">
+                                <CheckCircle className="w-10 h-10" />
                             </div>
-                            <h3 className="text-xl font-bold text-green-700">Registration Successful!</h3>
-                            <p className="text-slate-500 mt-2">Redirecting to profile...</p>
+                            <h3 className="text-2xl font-serif font-bold text-emerald-800">Enrollment Successful!</h3>
+                            <p className="text-[#8D6E63] font-bold text-[9px] uppercase tracking-[0.2em] mt-3">Welcome to the inner circle.</p>
                         </div>
                     ) : (
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form onSubmit={handleSubmit} className="space-y-6">
                             {error && (
-                                <div className="p-4 bg-red-50 text-red-600 rounded-lg text-sm flex items-start gap-2 border border-red-100 animate-in fade-in">
-                                    <AlertCircle className="w-5 h-5 flex-shrink-0" /> 
+                                <div className="mb-8 p-6 bg-rose-50 border border-rose-100 text-rose-700 text-[10px] font-bold uppercase tracking-[0.1em] flex items-center gap-3">
+                                    <ShieldAlert className="w-5 h-5 shrink-0" /> 
                                     <span>{error}</span>
                                 </div>
                             )}
 
-                            <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
-                                <div className="relative">
-                                    <User className="absolute left-3 top-3 w-5 h-5 text-slate-400" />
+                            <div className="space-y-2">
+                                <label className="block text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] ml-1">Distinguished Name</label>
+                                <div className="relative group">
+                                    <User className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C5A059]" />
                                     <input
                                         type="text"
                                         required
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
-                                        className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all outline-none"
-                                        placeholder="John Doe"
+                                        className="w-full pl-14 pr-6 py-4 bg-[#FAF9F6] border border-[#E8E2D6] focus:border-[#C5A059] transition-all outline-none font-bold text-sm tracking-widest text-[#2C1D1A]"
+                                        placeholder="Full Name"
                                     />
                                 </div>
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
-                                <div className="relative">
-                                    <Mail className="absolute left-3 top-3 w-5 h-5 text-slate-400" />
+                            <div className="space-y-2">
+                                <label className="block text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] ml-1">Electronic Mail</label>
+                                <div className="relative group">
+                                    <Mail className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C5A059]" />
                                     <input
                                         type="email"
                                         required
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all outline-none"
-                                        placeholder="name@company.com"
+                                        className="w-full pl-14 pr-6 py-4 bg-[#FAF9F6] border border-[#E8E2D6] focus:border-[#C5A059] transition-all outline-none font-bold text-sm tracking-widest text-[#2C1D1A]"
+                                        placeholder="noble@heritage.com"
                                     />
                                 </div>
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
-                                <div className="relative">
-                                    <Lock className="absolute left-3 top-3 w-5 h-5 text-slate-400" />
+                            <div className="space-y-2">
+                                <label className="block text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] ml-1">Private Cipher</label>
+                                <div className="relative group">
+                                    <Lock className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C5A059]" />
                                     <input
                                         type="password"
                                         required
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all outline-none"
+                                        className="w-full pl-14 pr-6 py-4 bg-[#FAF9F6] border border-[#E8E2D6] focus:border-[#C5A059] transition-all outline-none font-bold text-sm tracking-widest text-[#2C1D1A]"
                                         placeholder="••••••••"
                                     />
                                 </div>
-                                <p className="text-xs text-slate-500 mt-1 ml-1">Must be at least 8 characters long</p>
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Confirm Password</label>
-                                <div className="relative">
-                                    <Lock className="absolute left-3 top-3 w-5 h-5 text-slate-400" />
+                            <div className="space-y-2">
+                                <label className="block text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] ml-1">Confirm Cipher</label>
+                                <div className="relative group">
+                                    <Lock className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C5A059]" />
                                     <input
                                         type="password"
                                         required
                                         value={confirmPassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
-                                        className={`w-full pl-10 pr-4 py-2.5 rounded-lg border focus:ring-2 focus:ring-cyan-500/20 transition-all outline-none ${
+                                        className={`w-full pl-14 pr-6 py-4 bg-[#FAF9F6] border transition-all outline-none font-bold text-sm tracking-widest text-[#2C1D1A] ${
                                             confirmPassword && password !== confirmPassword 
-                                            ? 'border-red-300 focus:border-red-500 focus:ring-red-500/20' 
-                                            : 'border-slate-200 focus:border-cyan-500'
+                                            ? 'border-rose-300 focus:border-rose-500' 
+                                            : 'border-[#E8E2D6] focus:border-[#C5A059]'
                                         }`}
                                         placeholder="••••••••"
                                     />
                                 </div>
-                                {confirmPassword && password !== confirmPassword && (
-                                    <p className="text-xs text-red-500 mt-1 ml-1">Passwords do not match</p>
-                                )}
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/30 transition-all flex items-center justify-center gap-2 transform hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed mt-4"
+                                className="w-full bg-[#2C1D1A] text-white py-6 font-bold text-[11px] uppercase tracking-[0.4em] hover:bg-[#5D4037] hover:text-[#C5A059] transition-all duration-700 flex items-center justify-center gap-4 group disabled:opacity-50 shadow-2xl mt-4"
                             >
-                                {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Create Account'}
+                                {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Enroll In Registry'}
                             </button>
                         </form>
                     )}
 
-                    <div className="mt-8 text-center text-sm text-slate-500">
-                        Already have an account?{' '}
-                        <Link to="/login" className="text-cyan-600 font-semibold hover:underline decoration-2 underline-offset-2">
-                            Sign in instead
+                    <div className="mt-12 text-center text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em]">
+                        Already Inscribed?{' '}
+                        <Link to="/login" className="text-[#C5A059] hover:text-[#2C1D1A] transition-colors border-b border-[#C5A059]/30 pb-1">
+                            Identify Instead
                         </Link>
                     </div>
                 </div>
