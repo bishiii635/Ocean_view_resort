@@ -27,6 +27,55 @@ const ReservationManagement = () => {
         fetchData();
     }, []);
 
+    const printStyles = `
+        @media print {
+            header, footer, main, .print-hide {
+                display: none !important;
+            }
+            #invoice-modal-container {
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                display: block !important;
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                z-index: 9999 !important;
+            }
+            #invoice-modal-card {
+                position: static !important;
+                width: 100% !important;
+                max-width: none !important;
+                height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                box-shadow: none !important;
+                border: none !important;
+                background: white !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .overflow-y-auto {
+                overflow: visible !important;
+                height: auto !important;
+                max-height: none !important;
+            }
+            #printable-invoice {
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+        }
+    `;
+
     const fetchData = async () => {
         setLoading(true);
         try {
@@ -111,6 +160,7 @@ const ReservationManagement = () => {
 
     return (
         <div className="bg-[#FAF9F6] min-h-screen font-sans">
+            <style dangerouslySetInnerHTML={{ __html: printStyles }} />
             <AdminHeader />
 
             <div className={`pt-40 pb-20 px-6 container mx-auto print:pt-0 ${isInvoiceModalOpen ? 'print:hidden' : ''}`}>
@@ -198,7 +248,7 @@ const ReservationManagement = () => {
                                                             </div>
                                                             <div>
                                                                 <p className="font-serif font-bold text-[#2C1D1A] text-xl italic opacity-90">{guest?.name}</p>
-                                                                <p className="text-[9px] text-[#C5A059] font-bold uppercase tracking-[0.2em] font-mono mt-1">#RE-{res.id.substring(0, 8)}</p>
+                                                                <p className="text-[9px] text-[#C5A059] font-bold uppercase tracking-[0.2em] font-mono mt-1">#RE-{String(res.id).slice(-6)}</p>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -402,106 +452,111 @@ const ReservationManagement = () => {
                 </div>
             )}
 
-            {/* Invoice Modal */}
+            {/* Archival Ledger (Invoice Modal) - Heritage Edition */}
             {isInvoiceModalOpen && viewingInvoice && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 print:relative print:p-0 print:block print:z-0">
-                    <div className="absolute inset-0 bg-[#2C1D1A]/90 backdrop-blur-md print:hidden" onClick={() => setIsInvoiceModalOpen(false)}></div>
-                    <div className="bg-white border border-[#E8E2D6] w-full max-w-4xl shadow-2xl relative animate-in fade-in slide-in-from-bottom-8 duration-700 overflow-y-auto max-h-[95vh] flex flex-col p-16 print:p-0 print:shadow-none print:rounded-none print:max-h-none print:overflow-visible print:w-full print:border-none">
-                         <div className="absolute top-0 right-0 w-48 h-48 border-r-2 border-t-2 border-[#C5A059]/10 translate-x-3 -translate-y-3 print:hidden"></div>
-                        
-                        <div className="flex justify-between items-start mb-20 border-b border-[#FAF9F6] pb-12 print:border-black/10">
-                            <div>
-                                <h2 className="text-6xl font-serif font-black text-[#2C1D1A] mb-4 italic italic tracking-tighter">IMPERIAL <span className="text-[#C5A059]">STATEMENT</span></h2>
-                                <p className="text-[#8D6E63] font-bold uppercase tracking-[0.5em] text-[10px]">OCEAN VIEW ESTATE RECORDS OFFICE</p>
-                            </div>
-                            <div className="text-right flex flex-col items-end">
-                                <div className="p-4 bg-[#2C1D1A] text-[#C5A059] mb-6 shadow-2xl print:hidden">
-                                    <Crown className="w-10 h-10" />
+                <div id="invoice-modal-container" className="fixed inset-0 z-[100] flex items-center justify-center p-6 sm:p-12">
+                    <div className="absolute inset-0 bg-[#2C1D1A]/98 backdrop-blur-2xl print-hide" onClick={() => setIsInvoiceModalOpen(false)}></div>
+                    <div id="invoice-modal-card" className="bg-[#FAF9F6] w-full max-w-6xl shadow-[0_100px_300px_rgba(0,0,0,1)] relative z-10 flex flex-col max-h-[96vh] overflow-hidden animate-in zoom-in-110 duration-1000 border-t-[12px] border-[#C5A059]">
+                        <div className="overflow-y-auto print:overflow-visible">
+                            {/* Toolbar - Regal Edition */}
+                            <div className="sticky top-0 z-20 px-16 py-10 bg-white border-b border-[#E8E2D6] flex justify-between items-center print-hide shadow-sm">
+                                <div className="flex items-center gap-6">
+                                     <div className="w-12 h-12 bg-[#2C1D1A] flex items-center justify-center text-[#C5A059]">
+                                         <FileText className="w-6 h-6" />
+                                     </div>
+                                     <div>
+                                        <h3 className="text-2xl font-serif font-black text-[#2C1D1A] tracking-tighter italic">Royal Archive Record</h3>
+                                        <p className="text-[9px] text-[#C5A059] font-black uppercase tracking-[0.4em]">Historical Statement Registry</p>
+                                     </div>
                                 </div>
-                                <p className="text-[#2C1D1A] font-serif font-black text-2xl italic tracking-tight">#{viewingInvoice.id}</p>
-                                <p className="text-[#8D6E63] text-[9px] font-bold uppercase tracking-[0.3em] mt-2">{new Date(viewingInvoice.invoiceDate).toLocaleDateString()}</p>
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-20">
-                            <div className="space-y-4">
-                                <h3 className="text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.4em]">Respective Citizen</h3>
-                                <p className="text-3xl font-serif font-black text-[#2C1D1A] italic">{viewingInvoice.guestName}</p>
-                                <p className="text-[#8D6E63] font-bold uppercase tracking-[0.2em] text-[11px] opacity-60">ID: HS-{viewingInvoice.guestId.substring(0, 8)}</p>
-                            </div>
-                            <div className="text-right space-y-6">
-                                <h3 className="text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.4em]">Prosperity Protocol</h3>
-                                <div className="flex justify-end">
-                                    <span className={`px-6 py-2 border text-[10px] font-black uppercase tracking-[0.2em] shadow-sm ${
-                                        viewingInvoice.paymentStatus === 'PAID' ? 'bg-emerald-50 text-emerald-700 border-emerald-100' : 'bg-rose-50 text-rose-700 border-rose-100'
-                                    }`}>
-                                        {viewingInvoice.paymentStatus}
-                                    </span>
+                                <div className="flex items-center gap-6">
+                                    <button onClick={handlePrint} className="group flex items-center gap-4 px-10 py-5 bg-[#FAF9F6] border border-[#E8E2D6] text-[#2C1D1A] font-black text-[10px] tracking-[0.3em] uppercase hover:bg-white hover:border-[#C5A059] transition-all duration-500">
+                                        <Printer className="w-5 h-5 text-[#C5A059] group-hover:scale-110 transition-transform" /> Print Record
+                                    </button>
+                                    <button onClick={() => setIsInvoiceModalOpen(false)} className="p-3 text-[#8D6E63] hover:text-[#2C1D1A] transition-all">
+                                        <X className="w-8 h-8" />
+                                    </button>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="flex-1 overflow-hidden border border-[#E8E2D6] mb-20 shadow-xl">
-                            <table className="w-full text-left">
-                                <thead className="bg-[#2C1D1A] text-[#C5A059]">
-                                    <tr>
-                                        <th className="px-10 py-6 text-[10px] font-bold uppercase tracking-[0.3em]">Imperial Service</th>
-                                        <th className="px-10 py-6 text-[10px] font-bold uppercase tracking-[0.3em] text-right">Decree Reference</th>
-                                        <th className="px-10 py-6 text-[10px] font-bold uppercase tracking-[0.3em] text-right">Prosperity Impact</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-[#E8E2D6]">
-                                    <tr className="bg-white">
-                                        <td className="px-10 py-10">
-                                            <p className="font-serif font-bold text-[#2C1D1A] text-2xl italic">{viewingInvoice.roomName}</p>
-                                            <p className="text-[10px] text-[#8D6E63] font-bold uppercase tracking-[0.2em] mt-2">Noble Sanctuary Residency</p>
-                                        </td>
-                                        <td className="px-10 py-10 text-right">
-                                            <p className="text-[11px] font-black text-[#8D6E63] uppercase tracking-[0.1em]">DECREE: #{viewingInvoice.reservationId.substring(0, 12)}</p>
-                                        </td>
-                                        <td className="px-10 py-10 text-right">
-                                            <p className="text-2xl font-serif font-black text-[#2C1D1A] italic">LKR {viewingInvoice.totalPrice?.toLocaleString()}</p>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr className="bg-[#FAF9F6] border-t-2 border-[#E8E2D6]">
-                                        <td colSpan="2" className="px-10 py-8 text-right">
-                                            <p className="text-[10px] font-black text-[#8D6E63] uppercase tracking-[0.4em]">Final Treasury Valuation</p>
-                                        </td>
-                                        <td className="px-10 py-8 text-right">
-                                            <p className="text-4xl font-serif font-black text-[#5D4037] italic">LKR {viewingInvoice.totalPrice?.toLocaleString()}</p>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
+                            <div id="printable-invoice" className="p-10 sm:p-20 bg-white">
+                                <div className="max-w-4xl mx-auto border-[12px] border-[#E8E2D6] p-12 sm:p-20 relative overflow-hidden bg-[url('https://www.transparenttextures.com/patterns/linen.png')]">
+                                    <div className="absolute top-0 right-0 w-64 h-64 bg-[#C5A059]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                                    
+                                    {/* Header - The Imperial Seal */}
+                                    <div className="flex justify-between items-start mb-24 relative z-10">
+                                        <div className="space-y-6">
+                                            <div className="w-20 h-20 bg-[#2C1D1A] flex items-center justify-center text-[#C5A059] shadow-2xl">
+                                                <Crown className="w-10 h-10" />
+                                            </div>
+                                            <div className="space-y-1">
+                                                <h2 className="text-4xl font-serif font-black text-[#2C1D1A] tracking-tighter uppercase italic leading-none">Ocean View</h2>
+                                                <p className="text-[10px] font-black text-[#C5A059] uppercase tracking-[0.6em]">Resort & Imperial Spa</p>
+                                            </div>
+                                        </div>
+                                        <div className="text-right">
+                                            <h1 className="text-5xl font-serif font-black text-[#2C1D1A] italic tracking-tighter mb-4">Statement #<span className="text-[#C5A059]">{String(viewingInvoice.id).slice(-6)}</span></h1>
+                                            <p className="text-[10px] text-[#8D6E63] font-black uppercase tracking-[0.4em]">Issued on {new Date(viewingInvoice.invoiceDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
+                                        </div>
+                                    </div>
 
-                        <div className="flex flex-wrap gap-6 print:hidden">
-                            <button 
-                                onClick={() => setIsInvoiceModalOpen(false)}
-                                className="flex-1 py-6 bg-[#FAF9F6] text-[#8D6E63] border border-[#E8E2D6] font-bold text-[10px] uppercase tracking-[0.3em] hover:bg-white transition-all shadow-sm flex items-center justify-center gap-4"
-                            >
-                                <X className="w-5 h-5" /> Rescind View
-                            </button>
-                            <button 
-                                onClick={handlePrint}
-                                className="flex-1 py-6 bg-[#5D4037] text-white font-bold text-[10px] uppercase tracking-[0.3em] hover:bg-[#2C1D1A] transition-all duration-500 shadow-2xl flex items-center justify-center gap-4"
-                            >
-                                <Printer className="w-5 h-5" /> Produce Hard Copy
-                            </button>
-                            <button 
-                                className="flex-1 py-6 bg-[#2C1D1A] text-[#C5A059] font-bold text-[10px] uppercase tracking-[0.3em] border border-[#C5A059]/20 hover:bg-[#C5A059] hover:text-[#2C1D1A] transition-all duration-500 flex items-center justify-center gap-4"
-                                onClick={() => alert('Sending electronic missive copy to noble guest...')}
-                            >
-                                <Mail className="w-5 h-5" /> Dispatch Missive
-                            </button>
-                        </div>
-                        
-                        <div className="hidden print:block text-center text-[9px] text-[#8D6E63] font-bold uppercase tracking-[0.3em] pt-12">
-                            This chronicle is computer-verified by the Imperial Records Office. No ink-seal is required. 
-                            <br/>
-                            © 2026 OCEAN VIEW ESTATE. ALL NOBLE RIGHTS RESERVED.
+                                    {/* Guest Details - Archival Entries */}
+                                    <div className="grid grid-cols-2 gap-20 mb-24 relative z-10">
+                                        <div className="space-y-6">
+                                            <h4 className="text-[10px] font-black text-[#C5A059] uppercase tracking-[0.5em] border-b border-[#E8E2D6] pb-3">Noble Patron</h4>
+                                            <div className="space-y-2">
+                                                <p className="text-2xl font-serif font-black text-[#2C1D1A] italic">{viewingInvoice.guestName}</p>
+                                                <p className="text-[10px] text-[#8D6E63] font-bold uppercase tracking-[0.2em]">Registry Cipher: {String(viewingInvoice.guestId).slice(-8).toUpperCase()}</p>
+                                            </div>
+                                        </div>
+                                        <div className="text-right space-y-6">
+                                            <h4 className="text-[10px] font-black text-[#C5A059] uppercase tracking-[0.5em] border-b border-[#E8E2D6] pb-3 text-right ml-auto w-fit">Treasury Accession</h4>
+                                            <div className="inline-block px-8 py-3 bg-[#FAF9F6] border border-[#C5A059]/30 text-[#2C1D1A] font-black text-[10px] uppercase tracking-[0.4em]">
+                                                {viewingInvoice.paymentStatus}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Line Items - Sanctuarial Decree */}
+                                    <div className="mb-24 relative z-10 border border-[#E8E2D6] bg-white shadow-xl overflow-hidden">
+                                        <div className="p-8 bg-[#2C1D1A] text-[#C5A059] flex justify-between items-center">
+                                            <span className="text-[10px] font-black uppercase tracking-[0.5em]">Imperial Service Catalogue</span>
+                                            <span className="text-[10px] font-black uppercase tracking-[0.5em]">Impact Valuation</span>
+                                        </div>
+                                        <div className="p-12 space-y-12">
+                                            <div className="flex justify-between items-center group">
+                                                <div className="space-y-2">
+                                                    <h3 className="text-3xl font-serif font-black text-[#2C1D1A] italic group-hover:text-[#C5A059] transition-colors">{viewingInvoice.roomName}</h3>
+                                                    <p className="text-[10px] text-[#8D6E63] font-bold uppercase tracking-[0.3em]">Imperial Sanctuary Decree #{String(viewingInvoice.reservationId).slice(-8)}</p>
+                                                </div>
+                                                <div className="text-right">
+                                                    <p className="text-3xl font-serif font-black text-[#2C1D1A] italic">LKR {viewingInvoice.totalPrice?.toLocaleString()}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="p-12 bg-[#FAF9F6] border-t border-[#E8E2D6] flex justify-between items-center">
+                                            <div className="space-y-1">
+                                                <p className="text-[10px] font-black text-[#8D6E63] uppercase tracking-[0.4em]">Collective Prosperity Prosperity Summation</p>
+                                                <p className="text-[9px] text-[#C5A059] font-black uppercase tracking-[0.2em] italic">All Imperial Levies Included</p>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-5xl font-serif font-black text-[#5D4037] italic tracking-tighter">LKR {viewingInvoice.totalPrice?.toLocaleString()}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Footer Note - The Sovereign's Promise */}
+                                    <div className="text-center space-y-8 relative z-10">
+                                        <div className="w-32 h-[1px] bg-[#E8E2D6] mx-auto"></div>
+                                        <p className="text-sm text-[#6D5B57] font-medium italic leading-relaxed max-w-2xl mx-auto opacity-70">
+                                            "A sanctuary is not merely a residence, but a reclamation of one's peace. Every decree issued is a covenant of luxury and absolute discretion."
+                                        </p>
+                                        <div className="mt-40 pt-16 border-t border-[#E8E2D6]/50 text-[10px] text-[#8D6E63] font-sans font-black uppercase tracking-[0.8em] text-center italic opacity-60">
+                                            AN AUTHENTIC HERITAGE OF THE SOUTHERN COAST &mdash; OCEAN VIEW RESORT
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -25,19 +25,19 @@ const AdminHeader = () => {
 
   const menuItems = user?.role === 'STAFF' 
     ? [
-        { path: '/staff/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+        { path: '/staff/dashboard', label: 'Home', icon: LayoutDashboard },
         { path: '/staff/guests', label: 'Guests', icon: Users },
         { path: '/staff/room-cleaning', label: 'Cleaning', icon: Eraser },
-        { path: '/staff/help', label: 'Assistance', icon: HelpCircle },
+        { path: '/staff/help', label: 'Help', icon: HelpCircle },
     ]
     : [
-        { path: '/admin/dashboard', label: 'Imperial Overview', icon: LayoutDashboard },
+        { path: '/admin/dashboard', label: 'Overview', icon: LayoutDashboard },
         { path: '/admin/reservations', label: 'Reservations', icon: CalendarDays },
-        { path: '/admin/rooms', label: 'Sanctuaries', icon: BedDouble },
-        { path: '/admin/room-categories', label: 'Heritage Tiers', icon: Palmtree },
-        { path: '/admin/users', label: 'Registers', icon: Users },
-        { path: '/admin/feedbacks', label: 'Testaments', icon: MessageSquare },
-        { path: '/admin/help', label: 'Senate Aid', icon: HelpCircle },
+        { path: '/admin/rooms', label: 'Rooms', icon: BedDouble },
+        { path: '/admin/room-categories', label: 'Tiers', icon: Palmtree },
+        { path: '/admin/users', label: 'Users', icon: Users },
+        { path: '/admin/feedbacks', label: 'Feedbacks', icon: MessageSquare },
+        { path: '/admin/help', label: 'Help', icon: HelpCircle },
     ];
 
   return (
@@ -59,19 +59,17 @@ const AdminHeader = () => {
         {/* Desktop Navigation */}
         <nav className="hidden xl:flex items-center gap-6">
           {menuItems.map((item) => {
-            const Icon = item.icon;
             const isActive = location.pathname === item.path;
             return (
               <Link 
                 key={item.path} 
                 to={item.path} 
-                className={`flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-300 relative group px-3 py-2 ${
+                className={`flex items-center gap-2 text-[10px] font-black tracking-[0.3em] uppercase transition-all duration-300 relative group px-3 py-2 ${
                   isActive 
                   ? 'text-[#C5A059] border-b-2 border-[#C5A059]' 
                   : scrolled ? 'text-[#5D4037] hover:text-[#C5A059]' : 'text-[#E3C184] hover:text-white'
                 }`}
               >
-                <Icon className="w-3.5 h-3.5 opacity-70" />
                 {item.label}
               </Link>
             );
