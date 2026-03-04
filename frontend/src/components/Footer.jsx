@@ -1,4 +1,4 @@
-import { Github, Twitter, Instagram, Facebook, Crown, Mail, Phone, MapPin, Anchor, Gem, Compass } from 'lucide-react';
+import { Crown, Mail, Phone, MapPin, Anchor, Gem, Compass, Utensils, Coffee, Bed, Wine } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -19,12 +19,23 @@ const Footer = () => {
           <p className="leading-relaxed text-sm font-medium italic opacity-80 border-l-2 border-[#C5A059] pl-6">
             Preserving the golden era of tropical nobility. Each stay is a testament to our enduring heritage of coastal luxury.
           </p>
-          <div className="flex gap-6">
-            {[Facebook, Twitter, Instagram, Github].map((Icon, i) => (
-              <a key={i} href="#" className="w-12 h-12 bg-white/5 border border-white/10 flex items-center justify-center text-[#C5A059] hover:bg-[#C5A059] hover:text-[#2C1D1A] transition-all duration-700">
-                <Icon className="w-5 h-5" />
-              </a>
-            ))}
+          <div className="flex gap-8 pt-4">
+              <div className="flex flex-col items-center gap-2 group">
+                  <Utensils className="w-5 h-5 text-[#C5A059] opacity-40 group-hover:opacity-100 transition-opacity" />
+                  <span className="text-[8px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-40 transition-opacity">Fine Dining</span>
+              </div>
+              <div className="flex flex-col items-center gap-2 group">
+                  <Coffee className="w-5 h-5 text-[#C5A059] opacity-40 group-hover:opacity-100 transition-opacity" />
+                   <span className="text-[8px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-40 transition-opacity">Heritage Brew</span>
+              </div>
+              <div className="flex flex-col items-center gap-2 group">
+                  <Bed className="w-5 h-5 text-[#C5A059] opacity-40 group-hover:opacity-100 transition-opacity" />
+                   <span className="text-[8px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-40 transition-opacity">Sanctuaries</span>
+              </div>
+              <div className="flex flex-col items-center gap-2 group">
+                  <Wine className="w-5 h-5 text-[#C5A059] opacity-40 group-hover:opacity-100 transition-opacity" />
+                   <span className="text-[8px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-40 transition-opacity">Elite Cellar</span>
+              </div>
           </div>
         </div>
         
@@ -67,22 +78,14 @@ const Footer = () => {
         </div>
       </div>
       
-      <div className="container mx-auto px-6 border-t border-white/5 mt-32 pt-16 flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] font-bold uppercase tracking-[0.4em]">
+      <div className="container mx-auto px-6 border-t border-white/5 mt-32 pt-16 flex justify-center items-center gap-6 text-[10px] font-bold uppercase tracking-[0.4em]">
         <div className="flex items-center gap-4">
-            <MagnetIcon className="w-4 h-4 text-[#C5A059]" />
-            &copy; {new Date().getFullYear()} Ocean View Resort & Spa. Inherited Rights Reserved.
+            <Compass className="w-4 h-4 text-[#C5A059] animate-spin-slow" />
+            &copy; 2026 Ocean View Resort & Spa. Inherited Rights Reserved.
         </div>
-        <div className="opacity-40 italic">Masterfully crafted by the Advanced Agentic Team</div>
       </div>
     </footer>
   );
 };
-
-const MagnetIcon = ({className}) => (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z" />
-        <path d="M15 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-    </svg>
-)
 
 export default Footer;
