@@ -1,20 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { 
-    Palmtree, 
-    Search, 
-    Plus, 
-    Edit2, 
-    Trash2, 
-    Image as ImageIcon,
-    Type,
-    FileText,
-    X,
-    Check,
-    Loader2,
-    AlertCircle
+    Palmtree, Search, Plus, Edit2, Trash2, Image as ImageIcon, Type, FileText, X, Check, Loader2, AlertCircle, Crown, Gem, Sparkles
 } from 'lucide-react';
-import AdminSidebar from '../components/AdminSidebar';
+import AdminHeader from '../components/AdminHeader';
+import Footer from '../components/Footer';
 
 const RoomCategories = () => {
     const [categories, setCategories] = useState([]);
@@ -65,28 +55,28 @@ const RoomCategories = () => {
         try {
             if (editingCategory) {
                 await axios.put(`http://localhost:8080/api/room-types/${editingCategory.id}`, formData);
-                setSuccess('Category updated successfully');
+                setSuccess('Heritage category status updated.');
             } else {
                 await axios.post('http://localhost:8080/api/room-types', formData);
-                setSuccess('Category created successfully');
+                setSuccess('New sanctuary rank established.');
             }
             fetchCategories();
             setIsModalOpen(false);
             setTimeout(() => setSuccess(''), 3000);
         } catch (err) {
-            setError(err.response?.data?.error || 'Failed to save category');
+            setError(err.response?.data?.error || 'Registry modification failed.');
         }
     };
 
     const handleDelete = async (id) => {
-        if (window.confirm('Are you sure you want to delete this category?')) {
+        if (window.confirm('Are you certain you wish to expunge this category from the imperial records?')) {
             try {
                 await axios.delete(`http://localhost:8080/api/room-types/${id}`);
-                setSuccess('Category deleted successfully');
+                setSuccess('Category expunged from records.');
                 fetchCategories();
                 setTimeout(() => setSuccess(''), 3000);
             } catch (err) {
-                setError('Failed to delete category');
+                setError('Failed to expunge category.');
             }
         }
     };
@@ -96,167 +86,174 @@ const RoomCategories = () => {
     );
 
     return (
-        <div className="flex bg-slate-50 min-h-screen">
-            <div className="flex-1 mr-64">
-                <header className="bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-slate-200 px-8 py-5 flex justify-between items-center shadow-sm">
-                    <div className="flex items-center gap-3">
-                        <div className="p-2 bg-emerald-100 text-emerald-600 rounded-lg">
-                            <Palmtree className="w-6 h-6" />
+        <div className="bg-[#FAF9F6] min-h-screen font-sans">
+            <AdminHeader />
+
+            <main className="pt-40 pb-20 px-6 container mx-auto">
+                <div className="flex flex-col md:flex-row justify-between items-center mb-16 gap-8">
+                    <div className="flex items-center gap-6">
+                        <div className="p-5 bg-[#2C1D1A] text-[#C5A059] shadow-2xl">
+                            <Palmtree className="w-8 h-8" />
                         </div>
-                        <h1 className="text-2xl font-bold text-slate-800">Room Categories</h1>
+                        <div className="space-y-1">
+                            <h1 className="text-4xl md:text-5xl font-serif font-black text-[#2C1D1A] italic tracking-tight">Sanctuary Ranks</h1>
+                            <p className="text-[#8D6E63] text-[10px] font-bold uppercase tracking-[0.4em]">Classification of noble living quarters</p>
+                        </div>
                     </div>
                     
                     <button 
                         onClick={() => handleOpenModal()}
-                        className="flex items-center gap-2 bg-slate-900 text-white px-4 py-2.5 rounded-xl font-semibold hover:bg-slate-800 transition-all shadow-lg shadow-slate-200"
+                        className="flex items-center gap-4 bg-[#5D4037] text-white px-10 py-5 font-bold text-[10px] tracking-[0.3em] uppercase hover:bg-[#2C1D1A] transition-all duration-500 shadow-2xl group"
                     >
-                        <Plus className="w-5 h-5" />
-                        New Category
+                        <Plus className="w-5 h-5 group-hover:scale-125 transition-transform" />
+                        Establish New Rank
                     </button>
-                </header>
+                </div>
 
-                <main className="p-8">
-                    {success && (
-                        <div className="mb-6 p-4 bg-emerald-50 text-emerald-600 rounded-xl flex items-center gap-3 border border-emerald-100 animate-in fade-in slide-in-from-top-2">
-                            <Check className="w-5 h-5" />
-                            <span className="font-medium">{success}</span>
+                {success && (
+                    <div className="mb-10 p-6 bg-emerald-50 border border-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-4 animate-in fade-in slide-in-from-top-4">
+                        <Check className="w-5 h-5" />
+                        <span>{success}</span>
+                    </div>
+                )}
+
+                <div className="bg-white border border-[#E8E2D6] shadow-2xl overflow-hidden group">
+                    <div className="p-10 border-b border-[#FAF9F6] bg-[#FAF9F6]/50 flex flex-col md:flex-row md:items-center justify-between gap-8">
+                        <div className="relative flex-1 max-w-xl">
+                            <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C5A059]" />
+                            <input 
+                                type="text" 
+                                placeholder="Search ranks by designation..." 
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="w-full pl-14 pr-8 py-4 bg-white border border-[#E8E2D6] text-[#2C1D1A] focus:border-[#C5A059] outline-none transition-all font-medium italic"
+                            />
                         </div>
-                    )}
-
-                    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                        <div className="p-6 border-b border-slate-100 bg-slate-50/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                            <div className="relative flex-1 max-w-md">
-                                <Search className="absolute left-3 top-2.5 w-5 h-5 text-slate-400" />
-                                <input 
-                                    type="text" 
-                                    placeholder="Search categories..." 
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 bg-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all outline-none"
-                                />
-                            </div>
-                            <div className="flex items-center gap-2 text-sm text-slate-500 font-medium">
-                                <span>Showing {filteredCategories.length} categories</span>
-                            </div>
-                        </div>
-
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-left">
-                                <thead className="bg-slate-50 border-b border-slate-100">
-                                    <tr>
-                                      
-                                        <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Category Name</th>
-                                        <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-slate-100">
-                                    {loading ? (
-                                        <tr>
-                                            <td colSpan="4" className="px-6 py-12 text-center">
-                                                <Loader2 className="w-10 h-10 animate-spin text-emerald-600 mx-auto mb-4" />
-                                                <p className="text-slate-500 animate-pulse">Loading categories...</p>
-                                            </td>
-                                        </tr>
-                                    ) : filteredCategories.length === 0 ? (
-                                        <tr>
-                                            <td colSpan="4" className="px-6 py-12 text-center">
-                                                <div className="bg-slate-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
-                                                    <Search className="w-8 h-8" />
-                                                </div>
-                                                <p className="text-slate-500">No categories found.</p>
-                                            </td>
-                                        </tr>
-                                    ) : (
-                                        filteredCategories.map((c) => (
-                                            <tr key={c.id} className="hover:bg-slate-50 transition-colors group">
-                                         
-                                                <td className="px-6 py-4">
-                                                    <div className="flex items-center gap-3">
-                                                        <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-                                                            {c.name.charAt(0)}
-                                                        </div>
-                                                        <span className="font-bold text-slate-800">{c.name}</span>
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-4 text-right">
-                                                    <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                        <button 
-                                                            onClick={() => handleOpenModal(c)}
-                                                            className="p-2 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all"
-                                                            title="Edit"
-                                                        >
-                                                            <Edit2 className="w-5 h-5" />
-                                                        </button>
-                                                        <button 
-                                                            onClick={() => handleDelete(c.id)}
-                                                            className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
-                                                            title="Delete"
-                                                        >
-                                                            <Trash2 className="w-5 h-5" />
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    )}
-                                </tbody>
-                            </table>
+                        <div className="flex items-center gap-3 text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.2em]">
+                            <Sparkles className="w-4 h-4 text-[#C5A059] opacity-50" />
+                            <span>Observing {filteredCategories.length} Established Ranks</span>
                         </div>
                     </div>
-                </main>
-            </div>
 
-            <AdminSidebar />
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left">
+                            <thead className="bg-[#2C1D1A] text-[#C5A059]">
+                                <tr>
+                                    <th className="px-10 py-6 text-[10px] font-bold uppercase tracking-[0.3em]">Imperial Designation</th>
+                                    <th className="px-10 py-6 text-[10px] font-bold uppercase tracking-[0.3em] text-right">Decrees</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-[#E8E2D6]">
+                                {loading ? (
+                                    <tr>
+                                        <td colSpan="2" className="px-10 py-32 text-center">
+                                            <Loader2 className="w-16 h-16 animate-spin text-[#C5A059] mx-auto mb-6" />
+                                            <p className="text-[#8D6E63] font-bold uppercase tracking-[0.3em] italic animate-pulse">Syncing with Grand Archives...</p>
+                                        </td>
+                                    </tr>
+                                ) : filteredCategories.length === 0 ? (
+                                    <tr>
+                                        <td colSpan="2" className="px-10 py-32 text-center text-[#8D6E63]">
+                                            <div className="bg-[#FAF9F6] w-24 h-24 flex items-center justify-center mx-auto mb-8 border border-[#E8E2D6]">
+                                                <Search className="w-10 h-10 text-[#E8E2D6]" />
+                                            </div>
+                                            <p className="text-xl font-serif italic text-xl">No ranks found in current annals.</p>
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    filteredCategories.map((c) => (
+                                        <tr key={c.id} className="hover:bg-[#FAF9F6] transition-all duration-500 group">
+                                            <td className="px-10 py-8">
+                                                <div className="flex items-center gap-6">
+                                                    <div className="w-14 h-14 bg-[#5D4037] text-[#C5A059] border border-[#C5A059]/30 flex items-center justify-center font-serif font-black text-xl shadow-lg group-hover:rotate-12 transition-transform">
+                                                        {c.name.charAt(0)}
+                                                    </div>
+                                                    <span className="font-serif font-bold text-[#2C1D1A] text-2xl italic tracking-tight opacity-90">{c.name}</span>
+                                                </div>
+                                            </td>
+                                            <td className="px-10 py-8 text-right">
+                                                <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-4 group-hover:translate-x-0">
+                                                    <button 
+                                                        onClick={() => handleOpenModal(c)}
+                                                        className="p-3 text-[#C5A059] border border-[#C5A059]/20 hover:bg-[#C5A059] hover:text-[#2C1D1A] transition-all duration-500"
+                                                        title="Modify Designation"
+                                                    >
+                                                        <Edit2 className="w-5 h-5" />
+                                                    </button>
+                                                    <button 
+                                                        onClick={() => handleDelete(c.id)}
+                                                        className="p-3 text-rose-400 border border-rose-100 hover:bg-rose-500 hover:text-white transition-all duration-500"
+                                                        title="Expunge Rank"
+                                                    >
+                                                        <Trash2 className="w-5 h-5" />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+
+            <Footer />
 
             {/* Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-                    <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setIsModalOpen(false)}></div>
-                    <div className="bg-white rounded-3xl w-full max-w-lg shadow-2xl relative animate-in fade-in zoom-in-95 duration-200 overflow-hidden">
-                        <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                            <h2 className="text-xl font-bold text-slate-800">{editingCategory ? 'Edit Category' : 'New Category'}</h2>
-                            <button onClick={() => setIsModalOpen(false)} className="p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-white transition-all">
-                                <X className="w-6 h-6" />
+                    <div className="absolute inset-0 bg-[#2C1D1A]/80 backdrop-blur-md" onClick={() => setIsModalOpen(false)}></div>
+                    <div className="bg-white border border-[#E8E2D6] w-full max-w-lg shadow-2xl relative animate-in fade-in zoom-in-95 duration-500 overflow-hidden">
+                        <div className="absolute top-0 right-0 w-24 h-24 border-r-2 border-t-2 border-[#C5A059]/20 translate-x-3 -translate-y-3"></div>
+                        
+                        <div className="p-10 border-b border-[#FAF9F6] flex justify-between items-center bg-[#FAF9F6]/50">
+                             <div className="flex items-center gap-4">
+                                <Crown className="w-6 h-6 text-[#C5A059]" />
+                                <h2 className="text-3xl font-serif font-black text-[#2C1D1A] italic">{editingCategory ? 'Modify Designation' : 'Establish Rank'}</h2>
+                            </div>
+                            <button onClick={() => setIsModalOpen(false)} className="p-3 text-[#8D6E63] hover:text-[#2C1D1A] transition-all">
+                                <X className="w-8 h-8" />
                             </button>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="p-8 space-y-6">
+                        <form onSubmit={handleSubmit} className="p-12 space-y-10">
                             {error && (
-                                <div className="p-4 bg-red-50 text-red-600 rounded-xl text-sm flex items-start gap-2 border border-red-100">
-                                    <AlertCircle className="w-5 h-5 mt-0.5" />
+                                <div className="p-6 bg-rose-50 border border-rose-100 text-rose-800 text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-4 animate-shake">
+                                    <AlertCircle className="w-5 h-5" />
                                     <span>{error}</span>
                                 </div>
                             )}
 
                             <div className="space-y-4">
-                                <div>
-                                    <label className="flex items-center gap-2 text-sm font-semibold text-slate-700 mb-2">
-                                        <Type className="w-4 h-4" /> Category Name
+                                <div className="space-y-3">
+                                    <label className="block text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] ml-1">
+                                        Imperial Designation Name
                                     </label>
                                     <input 
                                         type="text" 
                                         required
                                         value={formData.name}
                                         onChange={(e) => setFormData({...formData, name: e.target.value})}
-                                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none"
-                                        placeholder="e.g. Deluxe Ocean Suite"
+                                        className="w-full px-6 py-4 bg-[#FAF9F6] border border-[#E8E2D6] text-[#2C1D1A] focus:border-[#C5A059] outline-none transition-all font-medium italic"
+                                        placeholder="e.g. Royal Grand Suite"
                                     />
                                 </div>
                             </div>
 
-                            <div className="flex gap-3 pt-4">
+                            <div className="flex gap-6 pt-6">
                                 <button 
                                     type="button"
                                     onClick={() => setIsModalOpen(false)}
-                                    className="flex-1 px-6 py-3 rounded-xl font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-all"
+                                    className="flex-1 px-10 py-5 font-bold text-[10px] tracking-[0.3em] text-[#8D6E63] border border-[#E8E2D6] hover:bg-[#FAF9F6] transition-all uppercase"
                                 >
-                                    Cancel
+                                    Rescind
                                 </button>
                                 <button 
                                     type="submit"
-                                    className="flex-1 px-6 py-3 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-200 flex items-center justify-center gap-2"
+                                    className="flex-1 px-10 py-5 font-bold text-[10px] tracking-[0.3em] text-white bg-[#5D4037] hover:bg-[#2C1D1A] transition-all duration-500 shadow-2xl uppercase flex items-center justify-center gap-3"
                                 >
-                                    {editingCategory ? 'Save Changes' : 'Create Category'}
+                                    {editingCategory ? 'Seal Changes' : 'Confirm Establishment'}
                                 </button>
                             </div>
                         </form>

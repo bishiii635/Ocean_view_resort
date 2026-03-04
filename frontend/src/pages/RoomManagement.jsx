@@ -1,26 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { 
-    BedDouble, 
-    Search, 
-    Plus, 
-    Edit2, 
-    Trash2, 
-    Eye,
-    Image as ImageIcon,
-    Tag,
-    List,
-    DollarSign,
-    Users,
-    X,
-    Check,
-    Loader2,
-    AlertCircle,
-    Upload,
-    ChevronLeft,
-    ChevronRight
+    BedDouble, Search, Plus, Edit2, Trash2, Eye, Image as ImageIcon, Tag, List, DollarSign, Users, X, Check, Loader2, AlertCircle, Upload, ChevronLeft, ChevronRight, Crown, Gem, Sparkles, Anchor, MapPin, Compass
 } from 'lucide-react';
-import AdminSidebar from '../components/AdminSidebar';
+import AdminHeader from '../components/AdminHeader';
+import Footer from '../components/Footer';
 
 const RoomManagement = () => {
     const [rooms, setRooms] = useState([]);
@@ -62,7 +46,7 @@ const RoomManagement = () => {
             setCategories(categoriesRes.data);
         } catch (err) {
             console.error('Error fetching data', err);
-            setError('Failed to connect to the server.');
+            setError('Estate archival synchronization failed.');
         } finally {
             setLoading(false);
         }
@@ -142,9 +126,8 @@ const RoomManagement = () => {
         e.preventDefault();
         setError('');
         
-        // Validation
         if (!formData.name || !formData.roomTypeId || !formData.rate || !formData.capacity) {
-            setError('Please fill in all required fields.');
+            setError('Please document all required architectural details.');
             return;
         }
 
@@ -157,28 +140,28 @@ const RoomManagement = () => {
 
             if (editingRoom) {
                 await axios.put(`http://localhost:8080/api/rooms/${editingRoom.id}`, payload);
-                setSuccess('Room updated successfully');
+                setSuccess('Sanctuary blueprint updated.');
             } else {
                 await axios.post('http://localhost:8080/api/rooms', payload);
-                setSuccess('Room created successfully');
+                setSuccess('New sanctuary commissioned.');
             }
             fetchData();
             setIsModalOpen(false);
             setTimeout(() => setSuccess(''), 3000);
         } catch (err) {
-            setError(err.response?.data?.error || 'Failed to save room details.');
+            setError(err.response?.data?.error || 'Architectural record preservation failed.');
         }
     };
 
     const handleDelete = async (id) => {
-        if (window.confirm('Are you sure you want to delete this room?')) {
+        if (window.confirm('Are you certain you wish to decommission this sanctuary?')) {
             try {
                 await axios.delete(`http://localhost:8080/api/rooms/${id}`);
-                setSuccess('Room deleted successfully');
+                setSuccess('Sanctuary decommissioned.');
                 fetchData();
                 setTimeout(() => setSuccess(''), 3000);
             } catch (err) {
-                setError('Failed to delete room');
+                setError('Failed to decommission room.');
             }
         }
     };
@@ -189,273 +172,289 @@ const RoomManagement = () => {
     );
 
     const getCategoryName = (id) => {
-        return categories.find(c => c.id === id)?.name || 'Unknown Category';
+        return categories.find(c => c.id === id)?.name || 'Unknown Rank';
     };
 
     return (
-        <div className="flex bg-slate-50 min-h-screen">
-            <div className="flex-1 mr-64">
-                <header className="bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-slate-200 px-8 py-5 flex justify-between items-center shadow-sm">
-                    <div className="flex items-center gap-3">
-                        <div className="p-2 bg-blue-100 text-blue-600 rounded-lg">
-                            <BedDouble className="w-6 h-6" />
+        <div className="bg-[#FAF9F6] min-h-screen font-sans">
+            <AdminHeader />
+
+            <main className="pt-40 pb-20 px-6 container mx-auto">
+                <div className="flex flex-col md:flex-row justify-between items-center mb-16 gap-8">
+                    <div className="flex items-center gap-6">
+                        <div className="p-5 bg-[#2C1D1A] text-[#C5A059] shadow-2xl">
+                            <BedDouble className="w-8 h-8" />
                         </div>
-                        <h1 className="text-2xl font-bold text-slate-800">Room Management</h1>
+                        <div className="space-y-1">
+                            <h1 className="text-4xl md:text-5xl font-serif font-black text-[#2C1D1A] italic tracking-tight">Estate Sanctuaries</h1>
+                            <p className="text-[#8D6E63] text-[10px] font-bold uppercase tracking-[0.4em]">Inventory of noble living quarters</p>
+                        </div>
                     </div>
                     
                     <button 
                         onClick={() => handleOpenModal()}
-                        className="flex items-center gap-2 bg-slate-900 text-white px-4 py-2.5 rounded-xl font-semibold hover:bg-slate-800 transition-all shadow-lg shadow-slate-200"
+                        className="flex items-center gap-4 bg-[#5D4037] text-white px-10 py-5 font-bold text-[10px] tracking-[0.3em] uppercase hover:bg-[#2C1D1A] transition-all duration-500 shadow-2xl group"
                     >
-                        <Plus className="w-5 h-5" />
-                        Add New Room
+                        <Plus className="w-5 h-5 group-hover:scale-125 transition-transform" />
+                        Commission New Sanctuary
                     </button>
-                </header>
+                </div>
 
-                <main className="p-8">
-                    {success && (
-                        <div className="mb-6 p-4 bg-emerald-50 text-emerald-600 rounded-xl flex items-center gap-3 border border-emerald-100 animate-in fade-in slide-in-from-top-2">
-                            <Check className="w-5 h-5" />
-                            <span className="font-medium">{success}</span>
+                {success && (
+                    <div className="mb-10 p-6 bg-emerald-50 border border-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-4 animate-in fade-in slide-in-from-top-4">
+                        <Check className="w-5 h-5" />
+                        <span>{success}</span>
+                    </div>
+                )}
+
+                <div className="bg-white border border-[#E8E2D6] shadow-2xl overflow-hidden group">
+                    <div className="p-10 border-b border-[#FAF9F6] bg-[#FAF9F6]/50 flex flex-col md:flex-row md:items-center justify-between gap-8">
+                        <div className="relative flex-1 max-w-xl">
+                            <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C5A059]" />
+                            <input 
+                                type="text" 
+                                placeholder="Search archives for sanctuary names..." 
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="w-full pl-14 pr-8 py-4 bg-white border border-[#E8E2D6] text-[#2C1D1A] focus:border-[#C5A059] outline-none transition-all font-medium italic"
+                            />
                         </div>
-                    )}
-
-                    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                        <div className="p-6 border-b border-slate-100 bg-slate-50/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                            <div className="relative flex-1 max-w-md">
-                                <Search className="absolute left-3 top-2.5 w-5 h-5 text-slate-400" />
-                                <input 
-                                    type="text" 
-                                    placeholder="Search by room name..." 
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all outline-none"
-                                />
-                            </div>
-                            <div className="flex items-center gap-2 text-sm text-slate-500 font-medium">
-                                <span>Total Rooms: {filteredRooms.length}</span>
-                            </div>
-                        </div>
-
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-left">
-                                <thead className="bg-slate-50 border-b border-slate-100">
-                                    <tr>
-                                        <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Room</th>
-                                        <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Category</th>
-                                        <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Rate</th>
-                                        <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
-                                        <th className="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-slate-100">
-                                    {loading ? (
-                                        <tr>
-                                            <td colSpan="5" className="px-6 py-12 text-center">
-                                                <Loader2 className="w-10 h-10 animate-spin text-blue-600 mx-auto mb-4" />
-                                                <p className="text-slate-500">Working on it...</p>
-                                            </td>
-                                        </tr>
-                                    ) : filteredRooms.length === 0 ? (
-                                        <tr>
-                                            <td colSpan="5" className="px-6 py-12 text-center text-slate-500">
-                                                No rooms found. Add some to get started!
-                                            </td>
-                                        </tr>
-                                    ) : (
-                                        filteredRooms.map((room) => (
-                                            <tr key={room.id} className="hover:bg-slate-50 transition-colors group">
-                                                <td className="px-6 py-4">
-                                                    <div className="flex items-center gap-4">
-                                                        <div className="w-12 h-12 rounded-lg bg-slate-100 overflow-hidden border border-slate-200">
-                                                            {room.image1 ? (
-                                                                <img src={room.image1} alt={room.name} className="w-full h-full object-cover" />
-                                                            ) : (
-                                                                <ImageIcon className="w-full h-full p-2 text-slate-300" />
-                                                            )}
-                                                        </div>
-                                                        <div>
-                                                            <p className="font-bold text-slate-800">{room.name}</p>
-                                                            <p className="text-xs text-slate-400 capitalize">Capacity: {room.capacity} Persons</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    <span className="text-sm font-medium text-slate-600 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
-                                                        {getCategoryName(room.roomTypeId)}
-                                                    </span>
-                                                </td>
-                                                <td className="px-6 py-4 font-bold text-slate-700">
-                                                    Rs. {room.rate}/night
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                                                        room.status === 'AVAILABLE' ? 'bg-emerald-100 text-emerald-700' :
-                                                        room.status === 'MAINTENANCE' ? 'bg-orange-100 text-orange-700' :
-                                                        'bg-red-100 text-red-700'
-                                                    }`}>
-                                                        {room.status}
-                                                    </span>
-                                                </td>
-                                                <td className="px-6 py-4 text-right">
-                                                    <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                        <button 
-                                                            onClick={() => handleViewRoom(room)}
-                                                            className="p-2 text-slate-400 hover:text-cyan-600 hover:bg-cyan-50 rounded-lg transition-all"
-                                                            title="View Details"
-                                                        >
-                                                            <Eye className="w-5 h-5" />
-                                                        </button>
-                                                        <button 
-                                                            onClick={() => handleOpenModal(room)}
-                                                            className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
-                                                        >
-                                                            <Edit2 className="w-5 h-5" />
-                                                        </button>
-                                                        <button 
-                                                            onClick={() => handleDelete(room.id)}
-                                                            className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
-                                                        >
-                                                            <Trash2 className="w-5 h-5" />
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    )}
-                                </tbody>
-                            </table>
+                        <div className="flex items-center gap-3 text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.2em]">
+                            <Sparkles className="w-4 h-4 text-[#C5A059] opacity-50" />
+                            <span>Observing {filteredRooms.length} Registered Sanctuaries</span>
                         </div>
                     </div>
-                </main>
-            </div>
 
-            <AdminSidebar />
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left">
+                            <thead className="bg-[#2C1D1A] text-[#C5A059]">
+                                <tr>
+                                    <th className="px-10 py-6 text-[10px] font-bold uppercase tracking-[0.3em]">Sanctuary</th>
+                                    <th className="px-10 py-6 text-[10px] font-bold uppercase tracking-[0.3em]">Estate Rank</th>
+                                    <th className="px-10 py-6 text-[10px] font-bold uppercase tracking-[0.3em]">Era Rate</th>
+                                    <th className="px-10 py-6 text-[10px] font-bold uppercase tracking-[0.3em]">Presence</th>
+                                    <th className="px-10 py-6 text-[10px] font-bold uppercase tracking-[0.3em] text-right">Decrees</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-[#E8E2D6]">
+                                {loading ? (
+                                    <tr>
+                                        <td colSpan="5" className="px-10 py-32 text-center">
+                                            <Loader2 className="w-16 h-16 animate-spin text-[#C5A059] mx-auto mb-6" />
+                                            <p className="text-[#8D6E63] font-bold uppercase tracking-[0.3em] italic animate-pulse">Consulting Estate blue-prints...</p>
+                                        </td>
+                                    </tr>
+                                ) : filteredRooms.length === 0 ? (
+                                    <tr>
+                                        <td colSpan="5" className="px-10 py-32 text-center text-[#8D6E63]">
+                                            <div className="bg-[#FAF9F6] w-24 h-24 flex items-center justify-center mx-auto mb-8 border border-[#E8E2D6]">
+                                                <Anchor className="w-10 h-10 text-[#E8E2D6]" />
+                                            </div>
+                                            <p className="text-xl font-serif italic text-xl">No sanctuaries discovered in current archives.</p>
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    filteredRooms.map((room) => (
+                                        <tr key={room.id} className="hover:bg-[#FAF9F6] transition-all duration-500 group">
+                                            <td className="px-10 py-8">
+                                                <div className="flex items-center gap-6">
+                                                    <div className="w-16 h-16 bg-[#2C1D1A] border border-[#C5A059]/20 overflow-hidden shadow-lg group-hover:rotate-6 transition-transform">
+                                                        {room.image1 ? (
+                                                            <img src={room.image1} alt={room.name} className="w-full h-full object-cover opacity-80" />
+                                                        ) : (
+                                                            <div className="w-full h-full flex items-center justify-center text-[#C5A059]">
+                                                                <ImageIcon className="w-8 h-8 opacity-40" />
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div>
+                                                        <p className="font-serif font-bold text-[#2C1D1A] text-xl italic opacity-90">{room.name}</p>
+                                                        <p className="text-[9px] text-[#C5A059] font-bold uppercase tracking-[0.2em] mt-1">Capacity: {room.capacity} Distinguished Persons</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="px-10 py-8">
+                                                <span className="text-[9px] font-bold text-[#2C1D1A] uppercase tracking-[0.2em] border border-[#C5A059]/30 px-3 py-1.5 shadow-sm bg-white italic">
+                                                    {getCategoryName(room.roomTypeId)}
+                                                </span>
+                                            </td>
+                                            <td className="px-10 py-8 font-serif font-bold text-[#5D4037] text-lg italic tracking-tight">
+                                                LKR {room.rate.toLocaleString()} <span className="text-[10px] text-[#8D6E63] font-sans uppercase">/ Era night</span>
+                                            </td>
+                                            <td className="px-10 py-8">
+                                                <span className={`px-4 py-1.5 text-[9px] font-bold uppercase tracking-[0.2em] border shadow-sm ${
+                                                    room.status === 'AVAILABLE' ? 'bg-emerald-50 text-emerald-700 border-emerald-100' :
+                                                    room.status === 'MAINTENANCE' ? 'bg-rose-50 text-rose-700 border-rose-100' :
+                                                    'bg-[#FAF9F6] text-[#C5A059] border-[#C5A059]/30'
+                                                }`}>
+                                                    {room.status}
+                                                </span>
+                                            </td>
+                                            <td className="px-10 py-8 text-right">
+                                                <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-4 group-hover:translate-x-0">
+                                                    <button 
+                                                        onClick={() => handleViewRoom(room)}
+                                                        className="p-3 text-[#C5A059] border border-[#C5A059]/20 hover:bg-[#C5A059] hover:text-[#2C1D1A] transition-all duration-500"
+                                                        title="Observe Details"
+                                                    >
+                                                        <Eye className="w-5 h-5" />
+                                                    </button>
+                                                    <button 
+                                                        onClick={() => handleOpenModal(room)}
+                                                        className="p-3 text-[#5D4037] border border-[#5D4037]/20 hover:bg-[#5D4037] hover:text-white transition-all duration-500"
+                                                        title="Modify Blueprint"
+                                                    >
+                                                        <Edit2 className="w-5 h-5" />
+                                                    </button>
+                                                    <button 
+                                                        onClick={() => handleDelete(room.id)}
+                                                        className="p-3 text-rose-400 border border-rose-100 hover:bg-rose-500 hover:text-white transition-all duration-500"
+                                                        title="Decommission"
+                                                    >
+                                                        <Trash2 className="w-5 h-5" />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+
+            <Footer />
 
             {/* Room Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-                    <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setIsModalOpen(false)}></div>
-                    <div className="bg-white rounded-3xl w-full max-w-4xl max-h-[90vh] shadow-2xl relative animate-in fade-in zoom-in-95 duration-200 overflow-hidden flex flex-col">
-                        <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                            <h2 className="text-xl font-bold text-slate-800">{editingRoom ? 'Edit Room' : 'Add New Room'}</h2>
-                            <button onClick={() => setIsModalOpen(false)} className="p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-white transition-all">
-                                <X className="w-6 h-6" />
+                    <div className="absolute inset-0 bg-[#2C1D1A]/80 backdrop-blur-md" onClick={() => setIsModalOpen(false)}></div>
+                    <div className="bg-white border border-[#E8E2D6] w-full max-w-5xl max-h-[90vh] shadow-2xl relative animate-in fade-in zoom-in-95 duration-500 overflow-hidden flex flex-col">
+                        <div className="absolute top-0 right-0 w-32 h-32 border-r-2 border-t-2 border-[#C5A059]/20 translate-x-4 -translate-y-4"></div>
+                        
+                        <div className="p-10 border-b border-[#FAF9F6] flex justify-between items-center bg-[#FAF9F6]/50">
+                            <div className="flex items-center gap-6">
+                                <Crown className="w-8 h-8 text-[#C5A059]" />
+                                <h2 className="text-3xl font-serif font-black text-[#2C1D1A] italic">{editingRoom ? 'Modify Blueprint' : 'Commission Sanctuary'}</h2>
+                            </div>
+                            <button onClick={() => setIsModalOpen(false)} className="p-3 text-[#8D6E63] hover:text-[#2C1D1A] transition-all">
+                                <X className="w-8 h-8" />
                             </button>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-8">
+                        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-12 space-y-12 scrollbar-hide">
                             {error && (
-                                <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-xl text-sm flex items-start gap-2 border border-red-100">
-                                    <AlertCircle className="w-5 h-5 mt-0.5" />
+                                <div className="p-6 bg-rose-50 border border-rose-100 text-rose-800 text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-4 animate-shake">
+                                    <AlertCircle className="w-5 h-5" />
                                     <span>{error}</span>
                                 </div>
                             )}
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
                                 {/* Left Side: Basic Info */}
-                                <div className="space-y-6">
-                                    <div>
-                                        <label className="block text-sm font-semibold text-slate-700 mb-2">Room Name / Number</label>
+                                <div className="space-y-10">
+                                    <div className="space-y-3">
+                                        <label className="block text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] ml-1">Sanctuary Designation</label>
                                         <input 
                                             type="text" 
                                             required
                                             value={formData.name}
                                             onChange={(e) => setFormData({...formData, name: e.target.value})}
-                                            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none"
-                                            placeholder="Room 101 - Ocean Suite"
+                                            className="w-full px-6 py-4 bg-[#FAF9F6] border border-[#E8E2D6] text-[#2C1D1A] focus:border-[#C5A059] outline-none transition-all font-medium italic"
+                                            placeholder="e.g. Imperial Ocean Suite 402"
                                         />
                                     </div>
 
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div>
-                                            <label className="block text-sm font-semibold text-slate-700 mb-2">Category</label>
+                                    <div className="grid grid-cols-2 gap-8">
+                                        <div className="space-y-3">
+                                            <label className="block text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] ml-1">Legacy Rank</label>
                                             <select 
                                                 required
                                                 value={formData.roomTypeId}
                                                 onChange={(e) => setFormData({...formData, roomTypeId: e.target.value})}
-                                                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none bg-white"
+                                                className="w-full px-6 py-4 bg-[#FAF9F6] border border-[#E8E2D6] text-[#2C1D1A] focus:border-[#C5A059] outline-none transition-all font-bold text-[10px] uppercase tracking-[0.2em] bg-white h-[58px]"
                                             >
-                                                <option value="" disabled>Select Category</option>
+                                                <option value="" disabled>Select Rank</option>
                                                 {categories.map(c => (
                                                     <option key={c.id} value={c.id}>{c.name}</option>
                                                 ))}
                                             </select>
                                         </div>
-                                        <div>
-                                            <label className="block text-sm font-semibold text-slate-700 mb-2">Status</label>
+                                        <div className="space-y-3">
+                                            <label className="block text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] ml-1">Registry Presence</label>
                                             <select 
                                                 value={formData.status}
                                                 onChange={(e) => setFormData({...formData, status: e.target.value})}
-                                                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none bg-white"
+                                                className="w-full px-6 py-4 bg-[#FAF9F6] border border-[#E8E2D6] text-[#2C1D1A] focus:border-[#C5A059] outline-none transition-all font-bold text-[10px] uppercase tracking-[0.2em] bg-white h-[58px]"
                                             >
-                                                <option value="AVAILABLE">Available</option>
-                                                <option value="MAINTENANCE">Maintenance</option>
-                                                <option value="BOOKED">Booked</option>
+                                                <option value="AVAILABLE">Imperial Presence (Available)</option>
+                                                <option value="MAINTENANCE">Restoration Phase (Maintenance)</option>
+                                                <option value="BOOKED">Noble Occupied (Booked)</option>
                                             </select>
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div>
-                                            <label className="block text-sm font-semibold text-slate-700 mb-2">Nightly Rate (LKR)</label>
+                                    <div className="grid grid-cols-2 gap-8">
+                                        <div className="space-y-3">
+                                            <label className="block text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] ml-1">Prosperity Rate (LKR)</label>
                                             <input 
                                                 type="number" 
                                                 required
                                                 value={formData.rate}
                                                 onChange={(e) => setFormData({...formData, rate: e.target.value})}
-                                                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none"
-                                                placeholder="5000"
+                                                className="w-full px-6 py-4 bg-[#FAF9F6] border border-[#E8E2D6] text-[#2C1D1A] focus:border-[#C5A059] outline-none transition-all font-medium italic"
+                                                placeholder="0.00"
                                             />
                                         </div>
-                                        <div>
-                                            <label className="block text-sm font-semibold text-slate-700 mb-2">Capacity</label>
+                                        <div className="space-y-3">
+                                            <label className="block text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] ml-1">Imperial Capacity</label>
                                             <input 
                                                 type="number" 
                                                 required
                                                 value={formData.capacity}
                                                 onChange={(e) => setFormData({...formData, capacity: e.target.value})}
-                                                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none"
+                                                className="w-full px-6 py-4 bg-[#FAF9F6] border border-[#E8E2D6] text-[#2C1D1A] focus:border-[#C5A059] outline-none transition-all font-medium italic"
                                                 placeholder="2"
                                             />
                                         </div>
                                     </div>
 
-                                    <div>
-                                        <label className="block text-sm font-semibold text-slate-700 mb-2">Description</label>
+                                    <div className="space-y-3">
+                                        <label className="block text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] ml-1">Noble Narrative</label>
                                         <textarea 
                                             value={formData.description}
                                             onChange={(e) => setFormData({...formData, description: e.target.value})}
-                                            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none min-h-[120px] resize-none"
-                                            placeholder="Tell us about the room views, features..."
+                                            className="w-full px-6 py-4 bg-[#FAF9F6] border border-[#E8E2D6] text-[#2C1D1A] focus:border-[#C5A059] outline-none transition-all font-medium italic min-h-[160px] resize-none leading-relaxed"
+                                            placeholder="Chronicle the unique features and vistas of this sanctuary..."
                                         />
                                     </div>
                                 </div>
 
                                 {/* Right Side: Images & Amenities */}
-                                <div className="space-y-6">
-                                    <div>
-                                        <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
-                                            <ImageIcon className="w-4 h-4 text-blue-500" /> Room Images (Max 3)
+                                <div className="space-y-12">
+                                    <div className="space-y-6">
+                                        <label className="block text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] flex items-center gap-3">
+                                            <ImageIcon className="w-5 h-5 text-[#C5A059]" /> Visual Chronicles (Max 3)
                                         </label>
-                                        <div className="grid grid-cols-3 gap-3">
+                                        <div className="grid grid-cols-3 gap-6">
                                             {[1, 2, 3].map(idx => (
-                                                <div key={idx} className="relative aspect-square rounded-xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center overflow-hidden hover:border-blue-400 transition-colors group cursor-pointer">
+                                                <div key={idx} className="relative aspect-square bg-[#FAF9F6] border-2 border-dashed border-[#E8E2D6] overflow-hidden hover:border-[#C5A059] transition-all group cursor-pointer shadow-inner">
                                                     {formData[`image${idx}`] ? (
                                                         <>
-                                                            <img src={formData[`image${idx}`]} className="w-full h-full object-cover" />
+                                                            <img src={formData[`image${idx}`]} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" alt="Preview" />
                                                             <button 
                                                                 type="button"
                                                                 onClick={(e) => { e.stopPropagation(); setFormData({...formData, [`image${idx}`]: ''})}}
-                                                                className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                                                                className="absolute top-2 right-2 p-2 bg-[#2C1D1A] text-[#C5A059] shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity"
                                                             >
                                                                 <X className="w-3 h-3" />
                                                             </button>
                                                         </>
                                                     ) : (
                                                         <label className="w-full h-full flex flex-col items-center justify-center cursor-pointer">
-                                                            <Upload className="w-6 h-6 text-slate-300 mb-1" />
-                                                            <span className="text-[10px] text-slate-400 font-bold uppercase">Image {idx}</span>
+                                                            <Upload className="w-8 h-8 text-[#E8E2D6] mb-3 group-hover:scale-110 transition-transform" />
+                                                            <span className="text-[10px] text-[#8D6E63] font-bold uppercase tracking-[0.2em]">Era {idx}</span>
                                                             <input type="file" hidden accept="image/*" onChange={(e) => handleFileChange(e, idx)} />
                                                         </label>
                                                     )}
@@ -464,103 +463,115 @@ const RoomManagement = () => {
                                         </div>
                                     </div>
 
-                                    <div>
-                                        <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
-                                            <List className="w-4 h-4 text-blue-500" /> Amenities
+                                    <div className="space-y-6">
+                                        <label className="block text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.3em] flex items-center gap-3">
+                                            <List className="w-5 h-5 text-[#C5A059]" /> Noble Amenities
                                         </label>
-                                        <div className="flex gap-2 mb-3">
+                                        <div className="flex gap-4">
                                             <input 
                                                 type="text" 
                                                 value={newAmenity}
                                                 onChange={(e) => setNewAmenity(e.target.value)}
                                                 onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addAmenity())}
-                                                className="flex-1 px-4 py-2 text-sm rounded-xl border border-slate-200 focus:border-blue-500 outline-none"
-                                                placeholder="e.g. Free Wi-Fi, Balcony..."
+                                                className="flex-1 px-6 py-4 bg-[#FAF9F6] border border-[#E8E2D6] text-[#2C1D1A] focus:border-[#C5A059] outline-none transition-all font-medium italic"
+                                                placeholder="e.g. Imperial Silk Linens..."
                                             />
                                             <button 
                                                 type="button"
                                                 onClick={addAmenity}
-                                                className="bg-blue-100 text-blue-600 p-2 rounded-xl hover:bg-blue-200 transition-colors"
+                                                className="bg-[#2C1D1A] text-[#C5A059] p-4 shadow-xl hover:bg-[#5D4037] transition-all"
                                             >
-                                                <Plus className="w-5 h-5" />
+                                                <Plus className="w-6 h-6" />
                                             </button>
                                         </div>
-                                        <div className="flex flex-wrap gap-2 max-h-[150px] overflow-y-auto pr-2">
+                                        <div className="flex flex-wrap gap-3 max-h-[220px] overflow-y-auto pr-4 scrollbar-hide">
                                             {formData.amenities.map(a => (
-                                                <span key={a} className="bg-slate-100 text-slate-600 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 border border-slate-200">
+                                                <span key={a} className="bg-white text-[#2C1D1A] px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.1em] flex items-center gap-4 border border-[#E8E2D6] shadow-sm italic">
                                                     {a}
-                                                    <X className="w-3 h-3 cursor-pointer hover:text-red-500" onClick={() => removeAmenity(a)} />
+                                                    <X className="w-3.5 h-3.5 cursor-pointer text-[#C5A059] hover:text-rose-500 transition-colors" onClick={() => removeAmenity(a)} />
                                                 </span>
                                             ))}
                                             {formData.amenities.length === 0 && (
-                                                <p className="text-xs text-slate-400 italic">No amenities added yet.</p>
+                                                <p className="text-xs text-[#8D6E63] italic opacity-60">No distinct protocols or amenities added yet.</p>
                                             )}
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="flex gap-4 pt-8 mt-4 border-t border-slate-100">
+                            <div className="flex gap-6 pt-10 border-t border-[#FAF9F6]">
                                 <button 
                                     type="button"
                                     onClick={() => setIsModalOpen(false)}
-                                    className="flex-1 px-6 py-3 rounded-xl font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-all"
+                                    className="flex-1 px-10 py-5 font-bold text-[10px] tracking-[0.3em] text-[#8D6E63] border border-[#E8E2D6] hover:bg-[#FAF9F6] transition-all uppercase"
                                 >
-                                    Cancel
+                                    Rescind
                                 </button>
                                 <button 
                                     type="submit"
-                                    className="flex-1 px-6 py-3 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 flex items-center justify-center gap-2"
+                                    className="flex-1 px-10 py-5 font-bold text-[10px] tracking-[0.3em] text-white bg-[#5D4037] hover:bg-[#2C1D1A] transition-all duration-500 shadow-2xl uppercase flex items-center justify-center gap-3"
                                 >
-                                    {editingRoom ? 'Save Changes' : 'Create Room'}
+                                    {editingRoom ? 'Seal Blueprint Changes' : 'Confirm Sanctuary Commission'}
                                 </button>
                             </div>
                         </form>
                     </div>
                 </div>
             )}
+
             {/* View Details Modal */}
             {isViewModalOpen && viewingRoom && (
                 <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-                    <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setIsViewModalOpen(false)}></div>
-                    <div className="bg-white rounded-3xl w-full max-w-4xl max-h-[90vh] shadow-2xl relative animate-in fade-in zoom-in-95 duration-200 overflow-hidden flex flex-col">
-                        <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 bg-cyan-100 text-cyan-600 rounded-lg">
-                                    <Eye className="w-5 h-5" />
+                    <div className="absolute inset-0 bg-[#2C1D1A]/90 backdrop-blur-md" onClick={() => setIsViewModalOpen(false)}></div>
+                    <div className="bg-white border border-[#E8E2D6] w-full max-w-6xl max-h-[95vh] shadow-2xl relative animate-in fade-in zoom-in-95 duration-700 overflow-hidden flex flex-col">
+                         <div className="absolute top-0 left-0 w-64 h-64 border-l-2 border-t-2 border-[#C5A059]/10 -translate-x-8 -translate-y-8"></div>
+                        
+                        <div className="p-12 border-b border-[#FAF9F6] flex justify-between items-center bg-[#FAF9F6]/50 relative z-10">
+                            <div className="flex items-center gap-8">
+                                <div className="p-5 bg-[#2C1D1A] text-[#C5A059] shadow-2xl">
+                                    <Compass className="w-10 h-10" />
                                 </div>
-                                <h2 className="text-xl font-bold text-slate-800">Room Details - {viewingRoom.name}</h2>
+                                <div>
+                                    <h2 className="text-4xl font-serif font-black text-[#2C1D1A] italic tracking-tight">{viewingRoom.name}</h2>
+                                    <p className="text-[10px] text-[#C5A059] font-bold uppercase tracking-[0.5em] mt-2">Imperial Sanctuary Observation</p>
+                                </div>
                             </div>
-                            <button onClick={() => setIsViewModalOpen(false)} className="p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-white transition-all">
-                                <X className="w-6 h-6" />
+                            <button onClick={() => setIsViewModalOpen(false)} className="p-4 text-[#8D6E63] hover:text-[#2C1D1A] transition-all">
+                                <X className="w-10 h-10" />
                             </button>
                         </div>
 
-                        <div className="flex-1 overflow-y-auto p-8">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div className="flex-1 overflow-y-auto p-16 scrollbar-hide">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
                                 {/* Details Side */}
-                                <div className="space-y-8">
+                                <div className="space-y-16">
                                     <div>
-                                        <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Core Information</h3>
-                                        <div className="grid grid-cols-2 gap-6">
-                                            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                                                <p className="text-xs text-slate-500 mb-1">Nightly Rate</p>
-                                                <p className="text-xl font-bold text-slate-800">Rs. {viewingRoom.rate}</p>
+                                        <h3 className="text-[10px] font-bold text-[#C5A059] uppercase tracking-[0.5em] mb-10 flex items-center gap-4">
+                                            <span className="w-12 h-px bg-[#C5A059]/30"></span> Core Particulars
+                                        </h3>
+                                        <div className="grid grid-cols-2 gap-10">
+                                            <div className="bg-[#FAF9F6] p-10 border border-[#E8E2D6] shadow-sm relative group overflow-hidden">
+                                                <div className="absolute top-0 left-0 w-1.5 h-full bg-[#C5A059]/20 group-hover:bg-[#C5A059] transition-colors"></div>
+                                                <p className="text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.2em] mb-4">Nightly Prosperity</p>
+                                                <p className="text-3xl font-serif font-black text-[#2C1D1A] italic">LKR {viewingRoom.rate.toLocaleString()}</p>
                                             </div>
-                                            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                                                <p className="text-xs text-slate-500 mb-1">Capacity</p>
-                                                <p className="text-xl font-bold text-slate-800">{viewingRoom.capacity} Persons</p>
+                                            <div className="bg-[#FAF9F6] p-10 border border-[#E8E2D6] shadow-sm relative group overflow-hidden">
+                                                <div className="absolute top-0 left-0 w-1.5 h-full bg-[#C5A059]/20 group-hover:bg-[#C5A059] transition-colors"></div>
+                                                <p className="text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.2em] mb-4">Imperial Capacity</p>
+                                                <p className="text-3xl font-serif font-black text-[#2C1D1A] italic">{viewingRoom.capacity} Nobles</p>
                                             </div>
-                                            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                                                <p className="text-xs text-slate-500 mb-1">Category</p>
-                                                <p className="text-lg font-bold text-slate-800">{getCategoryName(viewingRoom.roomTypeId)}</p>
+                                            <div className="bg-[#FAF9F6] p-10 border border-[#E8E2D6] shadow-sm relative group overflow-hidden">
+                                                <div className="absolute top-0 left-0 w-1.5 h-full bg-[#C5A059]/20 group-hover:bg-[#C5A059] transition-colors"></div>
+                                                <p className="text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.2em] mb-4">Estate Rank</p>
+                                                <p className="text-2xl font-serif font-black text-[#2C1D1A] italic opacity-80">{getCategoryName(viewingRoom.roomTypeId)}</p>
                                             </div>
-                                            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                                                <p className="text-xs text-slate-500 mb-1">Status</p>
-                                                <span className={`px-3 py-1 rounded-full text-xs font-bold inline-block mt-1 ${
-                                                    viewingRoom.status === 'AVAILABLE' ? 'bg-emerald-100 text-emerald-700' :
-                                                    viewingRoom.status === 'MAINTENANCE' ? 'bg-orange-100 text-orange-700' :
-                                                    'bg-red-100 text-red-700'
+                                            <div className="bg-[#FAF9F6] p-10 border border-[#E8E2D6] shadow-sm relative group overflow-hidden">
+                                                <div className="absolute top-0 left-0 w-1.5 h-full bg-[#C5A059]/20 group-hover:bg-[#C5A059] transition-colors"></div>
+                                                <p className="text-[10px] font-bold text-[#8D6E63] uppercase tracking-[0.2em] mb-4">Current Protocol</p>
+                                                <span className={`px-6 py-2 border text-[10px] font-black uppercase tracking-[0.3em] inline-block shadow-sm italic mt-2 ${
+                                                    viewingRoom.status === 'AVAILABLE' ? 'bg-emerald-50 text-emerald-700 border-emerald-100' :
+                                                    viewingRoom.status === 'MAINTENANCE' ? 'bg-rose-50 text-rose-700 border-rose-100' :
+                                                    'bg-white text-[#C5A059] border-[#C5A059]/30'
                                                 }`}>
                                                     {viewingRoom.status}
                                                 </span>
@@ -569,44 +580,52 @@ const RoomManagement = () => {
                                     </div>
 
                                     <div>
-                                        <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Amenities</h3>
-                                        <div className="flex flex-wrap gap-2">
+                                        <h3 className="text-[10px] font-bold text-[#C5A059] uppercase tracking-[0.5em] mb-10 flex items-center gap-4">
+                                            <span className="w-12 h-px bg-[#C5A059]/30"></span> Distinguished Amenities
+                                        </h3>
+                                        <div className="flex flex-wrap gap-4">
                                             {viewingRoom.amenities?.map(a => (
-                                                <span key={a} className="bg-white border border-slate-200 px-4 py-2 rounded-xl text-sm font-medium text-slate-700 shadow-sm flex items-center gap-2">
-                                                    <div className="w-1.5 h-1.5 rounded-full bg-cyan-500"></div>
+                                                <span key={a} className="bg-white border border-[#E8E2D6] px-8 py-4 text-[11px] font-bold text-[#2C1D1A] shadow-sm flex items-center gap-4 italic group hover:border-[#C5A059] transition-all">
+                                                    <Gem className="w-5 h-5 text-[#C5A059] opacity-50 group-hover:opacity-100 transition-opacity" />
                                                     {a}
                                                 </span>
                                             ))}
                                             {(!viewingRoom.amenities || viewingRoom.amenities.length === 0) && (
-                                                <p className="text-slate-400 italic text-sm">No amenities listed.</p>
+                                                <p className="text-[#8D6E63] italic text-lg opacity-60">No distinct protocols or amenities chronicled for this sanctuary.</p>
                                             )}
                                         </div>
                                     </div>
 
                                     <div>
-                                        <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Description</h3>
-                                        <p className="text-slate-600 leading-relaxed bg-slate-50 p-6 rounded-2xl border border-dashed border-slate-200">
-                                            {viewingRoom.description || 'No description provided for this room.'}
-                                        </p>
+                                        <h3 className="text-[10px] font-bold text-[#C5A059] uppercase tracking-[0.5em] mb-10 flex items-center gap-4">
+                                            <span className="w-12 h-px bg-[#C5A059]/30"></span> Architectural Narrative
+                                        </h3>
+                                        <div className="bg-[#FAF9F6] p-12 border border-[#E8E2D6] text-[#2C1D1A] text-xl font-medium italic leading-[2] shadow-inner relative">
+                                            <Sparkles className="absolute -top-4 -right-4 w-12 h-12 text-[#C5A059] opacity-20" />
+                                            {viewingRoom.description || 'This sanctuary remains un-chronicled in the current era records.'}
+                                        </div>
                                     </div>
                                 </div>
 
                                 {/* Media Side */}
-                                <div className="space-y-6">
-                                    <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Room Gallery</h3>
-                                    <div className="space-y-4">
+                                <div className="space-y-12">
+                                     <h3 className="text-[10px] font-bold text-[#C5A059] uppercase tracking-[0.5em] mb-10 flex items-center gap-4">
+                                        <span className="w-12 h-px bg-[#C5A059]/30"></span> Visual Chronicles
+                                    </h3>
+                                    <div className="space-y-8">
                                         {[1, 2, 3].map(idx => (
                                             viewingRoom[`image${idx}`] && (
-                                                <div key={idx} className="rounded-2xl overflow-hidden border border-slate-100 shadow-md group relative">
-                                                    <img src={viewingRoom[`image${idx}`]} className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500" />
-                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                                <div key={idx} className="border border-[#E8E2D6] p-4 bg-white shadow-2xl relative group overflow-hidden">
+                                                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[#C5A059]/20 to-transparent"></div>
+                                                    <img src={viewingRoom[`image${idx}`]} className="w-full h-[400px] object-cover opacity-90 group-hover:opacity-100 grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700" alt="Gallery" />
+                                                    <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                                                 </div>
                                             )
                                         ))}
                                         {!viewingRoom.image1 && !viewingRoom.image2 && !viewingRoom.image3 && (
-                                            <div className="bg-slate-50 rounded-2xl h-64 flex flex-col items-center justify-center border-2 border-dashed border-slate-200 text-slate-400">
-                                                <ImageIcon className="w-12 h-12 mb-2 opacity-20" />
-                                                <p className="font-medium">No media uploaded</p>
+                                            <div className="bg-[#FAF9F6] h-[600px] flex flex-col items-center justify-center border-4 border-dashed border-[#E8E2D6] text-[#8D6E63]">
+                                                <ImageIcon className="w-24 h-24 mb-6 opacity-10" />
+                                                <p className="font-serif italic text-2xl opacity-40">No visual chronicles preserved...</p>
                                             </div>
                                         )}
                                     </div>
@@ -614,12 +633,12 @@ const RoomManagement = () => {
                             </div>
                         </div>
 
-                        <div className="p-6 bg-slate-50 border-t border-slate-100">
+                        <div className="p-12 bg-[#FAF9F6] border-t border-[#E8E2D6]">
                             <button 
                                 onClick={() => setIsViewModalOpen(false)}
-                                className="w-full py-4 rounded-2xl font-bold text-white bg-slate-900 hover:bg-slate-800 transition-all shadow-xl shadow-slate-200"
+                                className="w-full py-6 font-bold text-white bg-[#2C1D1A] hover:bg-[#5D4037] transition-all duration-500 shadow-2xl text-[10px] uppercase tracking-[0.5em] flex items-center justify-center gap-6"
                             >
-                                Close Details
+                                <Anchor className="w-5 h-5 text-[#C5A059]" /> Terminate Observation
                             </button>
                         </div>
                     </div>

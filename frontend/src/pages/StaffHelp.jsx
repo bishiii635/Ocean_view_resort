@@ -1,108 +1,105 @@
-import AdminSidebar from '../components/AdminSidebar';
+import AdminHeader from '../components/AdminHeader';
+import Footer from '../components/Footer';
 import { 
-    HelpCircle, 
-    Eraser, 
-    Users, 
-    Info, 
-    Zap,
-    CheckCircle,
-    Search
+    HelpCircle, Eraser, Users, Info, Zap, CheckCircle, Search, Crown, Sparkles, Anchor, Compass
 } from 'lucide-react';
 
 const StaffHelp = () => {
     const helpSections = [
         {
-            title: "Room Cleaning Guide",
+            title: "Sanctuary Restoration (Cleaning)",
             icon: Eraser,
-            color: "text-amber-600",
-            bg: "bg-amber-50",
             steps: [
-                "Navigate to the 'Room Cleaning' section from the sidebar.",
-                "Rooms marked as 'MAINTENANCE' are currently considered dirty.",
-                "Perform standard cleaning procedures following resort hygiene protocols.",
-                "Click the 'Mark as Cleaned' button to update status to 'AVAILABLE'.",
-                "This change is instant and allows front-desk to assign guests."
+                "Navigate to the 'Sanctuary Restoration' section from the superior header.",
+                "Rooms marked as 'RESTORATION' are currently considered in need of care.",
+                "Perform standard hygiene procedures following imperial resort protocols.",
+                "Click 'Mark as Restored' to update status to 'AVAILABLE' instantly.",
+                "This change enables the front-desk to assign incoming nobles."
             ]
         },
         {
-            title: "Guest Directory",
+            title: "Imperial Guest Registry",
             icon: Users,
-            color: "text-blue-600",
-            bg: "bg-blue-50",
             steps: [
-                "Access the 'Users' tab to see the Guest Directory.",
-                "Use the search bar to find guests by their Name or Email.",
-                "Staff can view guest IDs and contact details for assistance.",
-                "Editing or deleting guest profiles is restricted to Administrators.",
-                "Report any incorrect guest data to the site manager."
+                "Access the 'Citizens' tab to observe the Noble Guest Directory.",
+                "Use the search archives to find guests by Name or Digital Missive.",
+                "Stewards can view guest identities and contact details for operational assistance.",
+                "Modifying or expunging guest profiles is restricted to Imperial Admins.",
+                "Report any archival discrepancies to the Lead Steward or Manager."
             ]
         },
         {
-            title: "Dashboard Overview",
+            title: "Stewardship Overview",
             icon: Zap,
-            color: "text-purple-600",
-            bg: "bg-purple-50",
             steps: [
-                "The Dashboard provides real-time counts of reservations and guests.",
-                "View the 'Available Rooms' count to understand resort occupancy.",
-                "Use the Quick Actions banner to jump straight to cleaning tasks.",
-                "System status is monitored at the bottom of the sidebar."
+                "The Portal provides real-time counts of active decrees and visiting nobles.",
+                "Observe the 'Sanctuary Availability' count to understand estate occupancy.",
+                "Use the Quick Restoration banner to jump straight to housekeeping duties.",
+                "Portal integrity status is monitored in the lower stewardship sections."
             ]
         }
     ];
 
     return (
-        <div className="flex bg-slate-50 min-h-screen font-sans">
-            <div className="flex-1 mr-64">
-                <header className="bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-slate-200 px-8 py-5 flex justify-between items-center shadow-sm">
-                    <div className="flex items-center gap-3">
-                        <div className="p-2 bg-amber-100 text-amber-600 rounded-lg">
-                            <HelpCircle className="w-6 h-6" />
-                        </div>
-                        <h1 className="text-2xl font-bold text-slate-800">Staff Helper Guide</h1>
-                    </div>
-                </header>
+        <div className="bg-[#FAF9F6] min-h-screen font-sans">
+            <AdminHeader />
 
-                <main className="p-8 space-y-10">
-                    {/* Hero Section */}
-                    <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-[2.5rem] p-12 text-white shadow-2xl relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl -translate-y-20 translate-x-20"></div>
-                        <div className="relative z-10 max-w-2xl">
-                            <h2 className="text-4xl font-black mb-4 flex items-center gap-4 text-left">
-                                Staff Portal Support <CheckCircle className="w-8 h-8 text-amber-400" />
-                            </h2>
-                            <p className="text-slate-400 text-lg leading-relaxed text-left">
-                                Welcome to the Ocean View internal staff guide. This document outlines how to manage housekeeping tasks and navigate the guest directory effectively.
-                            </p>
+            <main className="pt-40 pb-20 px-6 container mx-auto">
+                {/* Hero Section */}
+                <div className="bg-[#2C1D1A] border border-[#C5A059]/20 p-16 text-white shadow-2xl relative overflow-hidden mb-20 group">
+                    <div className="absolute top-0 right-0 w-80 h-80 bg-[#C5A059]/10 rounded-full blur-3xl -translate-y-20 translate-x-20"></div>
+                    <div className="absolute bottom-0 left-0 w-48 h-48 border-l border-b border-[#C5A059]/20 -translate-x-3 translate-y-3"></div>
+                    
+                    <div className="relative z-10 max-w-3xl">
+                        <div className="flex items-center gap-6 mb-8 uppercase tracking-[0.5em] text-[#C5A059] text-[10px] font-bold">
+                            <Sparkles className="w-5 h-5" /> Official Steward Guidance Archives
                         </div>
+                        <h2 className="text-5xl md:text-6xl font-serif font-black mb-6 italic tracking-tight">
+                            Stewardship <span className="text-[#C5A059]">Support</span> <CheckCircle className="w-10 h-10 text-[#C5A059] inline-block ml-4 animate-pulse" />
+                        </h2>
+                        <p className="text-[#E8E2D6] text-xl leading-relaxed italic font-medium opacity-80">
+                            Welcome to the Ocean View internal staff guide. This chronicle outlines the protocols for sanctuary restoration and guest registry navigation.
+                        </p>
                     </div>
+                </div>
 
-                    {/* Help Cards Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {helpSections.map((section, idx) => (
-                            <div key={idx} className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className={`p-4 rounded-xl ${section.bg}`}>
-                                        <section.icon className={`w-6 h-6 ${section.color}`} />
-                                    </div>
-                                    <h3 className="text-xl font-black text-slate-800">{section.title}</h3>
+                {/* Help Cards Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    {helpSections.map((section, idx) => (
+                        <div key={idx} className="bg-white p-12 border border-[#E8E2D6] shadow-2xl hover:border-[#C5A059] transition-all duration-500 group relative">
+                            <div className="absolute top-0 right-0 w-16 h-16 bg-[#FAF9F6] border-b border-l border-[#E8E2D6] group-hover:border-[#C5A059]/30 transition-colors"></div>
+                            
+                            <div className="flex items-center gap-6 mb-10">
+                                <div className="p-5 bg-[#FAF9F6] border border-[#E8E2D6] text-[#C5A059] group-hover:bg-[#2C1D1A] group-hover:text-white transition-all duration-500 shadow-inner">
+                                    <section.icon className="w-8 h-8" />
                                 </div>
-                                <ul className="space-y-4">
-                                    {section.steps.map((step, sIdx) => (
-                                        <li key={sIdx} className="flex gap-3 text-slate-600 font-medium text-left">
-                                            <div className="mt-1.5 min-w-[6px] h-[6px] rounded-full bg-amber-500"></div>
-                                            {step}
-                                        </li>
-                                    ))}
-                                </ul>
+                                <h3 className="text-2xl font-serif font-black text-[#2C1D1A] italic tracking-tight leading-tight">{section.title}</h3>
                             </div>
-                        ))}
-                    </div>
+                            <ul className="space-y-6">
+                                {section.steps.map((step, sIdx) => (
+                                    <li key={sIdx} className="flex gap-4 text-[#2C1D1A]/70 font-medium italic text-lg leading-relaxed group/item">
+                                        <Sparkles className="mt-1.5 w-4 h-4 text-[#C5A059] opacity-30 group-hover/item:opacity-100 transition-opacity" />
+                                        {step}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
 
-     
-                </main>
-            </div>
-            <AdminSidebar />
+                {/* Protocol Banner */}
+                <div className="mt-20 bg-[#FAF9F6] border-2 border-[#E8E2D6] border-dashed p-10 flex flex-col md:flex-row items-center gap-10 group">
+                    <div className="w-20 h-20 bg-white border border-[#E8E2D6] flex items-center justify-center shadow-xl group-hover:rotate-12 transition-transform duration-500">
+                        <Info className="w-10 h-10 text-[#C5A059]" />
+                    </div>
+                    <div className="flex-1 text-center md:text-left">
+                        <h4 className="text-2xl font-serif font-black text-[#2C1D1A] mb-2 italic">Official Internal Protocol</h4>
+                        <p className="text-[#8D6E63] font-bold text-[10px] uppercase tracking-[0.3em]">All staff actions are logged within the Imperial Portal. Ensure accuracy in all sanctuary restoration reports.</p>
+                    </div>
+                </div>
+            </main>
+
+            <Footer />
         </div>
     );
 };

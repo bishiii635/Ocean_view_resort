@@ -1,135 +1,117 @@
-import AdminSidebar from '../components/AdminSidebar';
+import AdminHeader from '../components/AdminHeader';
+import Footer from '../components/Footer';
 import { 
-    HelpCircle, 
-    Calendar, 
-    Bed, 
-    Users, 
-    FileText, 
-    Zap, 
-    AlertCircle, 
-    CheckCircle, 
-    Info, 
-    Printer,
-    Trash2
+    HelpCircle, Calendar, Bed, Users, FileText, Zap, AlertCircle, CheckCircle, Info, Printer, Trash2, Crown, Compass, Anchor, Sparkles
 } from 'lucide-react';
 
 const AdminHelp = () => {
     const helpSections = [
         {
-            title: "Reservation Management",
+            title: "Imperial Decrees (Reservations)",
             icon: Calendar,
-            color: "text-blue-600",
-            bg: "bg-blue-50",
             steps: [
-                "View all guest bookings in the 'Reservations' tab.",
-                "Approve/Reject pending requests using the action buttons.",
-                "Click the eye icon to see full reservation details and guest notes.",
-                "Invoices are automatically generated upon approval.",
-                "Use the trash icon to remove cancelled or incorrect reservations."
+                "Observe all guest bookings in the 'Imperial Decrees' tab.",
+                "Approve/Reject pending requests using the administrative action seals.",
+                "Click the eye icon to see full decree details and noble guest notes.",
+                "Statements (Invoices) are automatically generated upon imperial approval.",
+                "Use the trash icon to expunge cancelled or incorrect records from the archives."
             ]
         },
         {
-            title: "Inventory & Rooms",
+            title: "Sanctuary Archives (Rooms)",
             icon: Bed,
-            color: "text-emerald-600",
-            bg: "bg-emerald-50",
             steps: [
-                "Add new rooms or suites in the 'Rooms' management section.",
-                "Set room status (Active/Maintenance) to control listing availability.",
-                "Organize layouts using 'Room Categories' (e.g., Deluxe, Suite).",
-                "Ensure price/LKR and capacity are accurate for each entry."
+                "Commission new sanctuaries or suites in the 'Estate Sanctuaries' section.",
+                "Set presence status (Active/Restoration) to control guest registration.",
+                "Organize classifications using 'Sanctuary Ranks' (e.g., Deluxe, Suite).",
+                "Ensure prosperity/LKR and capacity are recorded accurately in the ledgers."
             ]
         },
         {
-            title: "User Control",
+            title: "Citizen Registers (Users)",
             icon: Users,
-            color: "text-purple-600",
-            bg: "bg-purple-50",
             steps: [
-                "Manage both Guest accounts and Staff portal access.",
-                "Admins can create/delete Staff accounts for resort team members.",
-                "View guest history and contact details in the 'Users' tab."
+                "Manage both Noble Guest identities and Resort Steward portal access.",
+                "Imperial Admins can enroll/expunge Steward accounts for the resort team.",
+                "View citizen history and digital missive details in the 'Imperial Registers' tab."
             ]
         },
         {
-            title: "Invoicing & Printing",
+            title: "Statements & Chronicles",
             icon: Printer,
-            color: "text-amber-600",
-            bg: "bg-amber-50",
             steps: [
-                "Access invoices from the 'Reservations' table using the file icon.",
-                "The 'Print Invoice' button provides a clean, sidebar-free PDF view.",
-                "Ensure payment status is updated to 'PAID' after manual collection."
+                "Access financial statements from the 'Decrees' table using the scroll icon.",
+                "The 'Produce Hard Copy' button provides a clean, imperial-standard PDF view.",
+                "Ensure prosperity status is updated to 'PAID' after local impact collection."
             ]
         }
     ];
 
     return (
-        <div className="flex bg-slate-50 min-h-screen font-sans">
-            <div className="flex-1 mr-64">
-                <header className="bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-slate-200 px-8 py-5 flex justify-between items-center shadow-sm">
-                    <div className="flex items-center gap-3">
-                        <div className="p-2 bg-cyan-100 text-cyan-600 rounded-lg">
-                            <HelpCircle className="w-6 h-6" />
-                        </div>
-                        <h1 className="text-2xl font-bold text-slate-800">Administrator Help & Docs</h1>
-                    </div>
-                </header>
+        <div className="bg-[#FAF9F6] min-h-screen font-sans">
+            <AdminHeader />
 
-                <main className="p-8 space-y-10">
-                    {/* Hero Section */}
-                    <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-[2.5rem] p-12 text-white shadow-2xl relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl -translate-y-20 translate-x-20"></div>
-                        <div className="relative z-10 max-w-2xl">
-                            <h2 className="text-4xl font-black mb-4 flex items-center gap-4">
-                                Master Your Resort <Zap className="w-8 h-8 text-cyan-400" />
-                            </h2>
-                            <p className="text-slate-400 text-lg leading-relaxed">
-                                Welcome to the Ocean View internal management guide. Here you can find brief instructions on how to handle day-to-day operations and administrative tasks.
-                            </p>
+            <main className="pt-40 pb-20 px-6 container mx-auto">
+                {/* Hero Section */}
+                <div className="bg-[#2C1D1A] border border-[#C5A059]/20 p-16 text-white shadow-2xl relative overflow-hidden mb-20 group">
+                    <div className="absolute top-0 right-0 w-96 h-96 bg-[#C5A059]/10 rounded-full blur-3xl -translate-y-24 translate-x-24 group-hover:bg-[#C5A059]/20 transition-all duration-700"></div>
+                    <div className="absolute bottom-0 left-0 w-64 h-64 border-l border-b border-[#C5A059]/20 -translate-x-4 translate-y-4"></div>
+                    
+                    <div className="relative z-10 max-w-3xl">
+                        <div className="flex items-center gap-6 mb-8 uppercase tracking-[0.5em] text-[#C5A059] text-[10px] font-bold">
+                            <Crown className="w-5 h-5" /> Official Administrative Documentation
                         </div>
+                        <h2 className="text-5xl md:text-6xl font-serif font-black mb-6 italic tracking-tight">
+                            Command Your <span className="text-[#C5A059]">Estate</span> <Zap className="w-10 h-10 text-[#C5A059] inline-block ml-4 animate-pulse" />
+                        </h2>
+                        <p className="text-[#E8E2D6] text-xl leading-relaxed italic font-medium opacity-80">
+                            Welcome to the Ocean View Imperial management guide. Within these archives, you shall find the necessary protocols for estate operations and noble administrative duties.
+                        </p>
                     </div>
+                </div>
 
-                    {/* Help Cards Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {helpSections.map((section, idx) => (
-                            <div key={idx} className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className={`p-4 rounded-xl ${section.bg}`}>
-                                        <section.icon className={`w-6 h-6 ${section.color}`} />
-                                    </div>
-                                    <h3 className="text-xl font-black text-slate-800">{section.title}</h3>
+                {/* Help Cards Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    {helpSections.map((section, idx) => (
+                        <div key={idx} className="bg-white p-12 border border-[#E8E2D6] shadow-2xl hover:border-[#C5A059] transition-all duration-500 group relative">
+                            <div className="absolute top-0 right-0 w-16 h-16 bg-[#FAF9F6] border-b border-l border-[#E8E2D6] group-hover:border-[#C5A059]/30 transition-colors"></div>
+                            
+                            <div className="flex items-center gap-6 mb-10">
+                                <div className="p-5 bg-[#FAF9F6] border border-[#E8E2D6] text-[#C5A059] group-hover:bg-[#2C1D1A] group-hover:text-white transition-all duration-500 shadow-inner">
+                                    <section.icon className="w-8 h-8" />
                                 </div>
-                                <ul className="space-y-4">
-                                    {section.steps.map((step, sIdx) => (
-                                        <li key={sIdx} className="flex gap-3 text-slate-600 font-medium">
-                                            <div className="mt-1.5 min-w-[6px] h-[6px] rounded-full bg-cyan-500"></div>
-                                            {step}
-                                        </li>
-                                    ))}
-                                </ul>
+                                <h3 className="text-2xl font-serif font-black text-[#2C1D1A] italic tracking-tight">{section.title}</h3>
                             </div>
-                        ))}
-                    </div>
+                            <ul className="space-y-6">
+                                {section.steps.map((step, sIdx) => (
+                                    <li key={sIdx} className="flex gap-4 text-[#2C1D1A]/70 font-medium italic text-lg leading-relaxed group/item">
+                                        <Sparkles className="mt-1.5 w-4 h-4 text-[#C5A059] opacity-30 group-hover/item:opacity-100 transition-opacity" />
+                                        {step}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
 
-                    {/* Support Banner */}
-                    <div className="bg-cyan-50 rounded-[2rem] border border-cyan-100 p-8 flex flex-col md:flex-row items-center gap-6">
-                        <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center shadow-lg shadow-cyan-900/5">
-                            <Info className="w-8 h-8 text-cyan-600" />
-                        </div>
-                        <div className="flex-1 text-center md:text-left">
-                            <h4 className="text-lg font-black text-slate-900 mb-1">Database & System Health</h4>
-                            <p className="text-slate-500 text-sm">All changes are updated live to the MongoDB database. Ensure you verify guest details before approving payments.</p>
-                        </div>
-                        <div className="flex gap-3">
-                            <div className="px-5 py-2.5 bg-cyan-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-cyan-900/20">
-                                System Status: Online
-                            </div>
+                {/* System Health Banner */}
+                <div className="mt-20 bg-[#FAF9F6] border-2 border-[#E8E2D6] border-dashed p-12 flex flex-col lg:flex-row items-center gap-10 group">
+                    <div className="w-20 h-20 bg-white border border-[#E8E2D6] flex items-center justify-center shadow-xl group-hover:rotate-12 transition-transform duration-500">
+                        <Info className="w-10 h-10 text-[#C5A059]" />
+                    </div>
+                    <div className="flex-1 text-center lg:text-left">
+                        <h4 className="text-2xl font-serif font-black text-[#2C1D1A] mb-2 italic">Registry Integrity & System Vitality</h4>
+                        <p className="text-[#8D6E63] font-bold text-[10px] uppercase tracking-[0.3em]">All transitions are committed to the Imperial Data Vault instantly. Verify every citizen's missive before validation.</p>
+                    </div>
+                    <div className="flex flex-col gap-4">
+                        <div className="px-8 py-4 bg-[#2C1D1A] text-[#C5A059] border border-[#C5A059]/30 text-[10px] font-bold uppercase tracking-[0.4em] shadow-2xl">
+                            Imperial Status: Synchronized
                         </div>
                     </div>
-                </main>
-            </div>
-            <AdminSidebar />
+                </div>
+            </main>
+
+            <Footer />
         </div>
     );
 };
