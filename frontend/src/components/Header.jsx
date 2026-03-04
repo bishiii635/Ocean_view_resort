@@ -23,23 +23,23 @@ const Header = () => {
   };
 
   return (
-    <header className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white shadow-xl py-4' : 'bg-transparent py-8'}`}>
+    <header className={`fixed top-0 w-full z-50 transition-all duration-700 ${scrolled ? 'bg-white shadow-[0_20px_40px_rgba(0,0,0,0.1)] py-5' : 'bg-transparent py-10'}`}>
       <div className="container mx-auto px-6 flex justify-between items-center">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className={`p-2 rounded-full border border-[#C5A059] transition-transform duration-500 group-hover:rotate-[360deg] ${scrolled ? 'bg-[#5D4037]' : 'bg-white/10 backdrop-blur-sm'}`}>
-            <Crown className={`${scrolled ? 'text-[#C5A059]' : 'text-[#C5A059]'} w-6 h-6`} />
+        {/* Logo - The Heritage Crest */}
+        <Link to="/" className="flex items-center gap-4 group">
+          <div className={`p-2 border transition-all duration-700 group-hover:rotate-[360deg] ${scrolled ? 'bg-[#5D4037] border-[#C5A059]' : 'bg-white/10 backdrop-blur-sm border-white/40'}`}>
+            <Crown className={`${scrolled ? 'text-[#C5A059]' : 'text-white'} w-7 h-7`} />
           </div>
           <div className="flex flex-col leading-none">
-            <span className={`text-2xl font-black tracking-[0.15em] uppercase ${scrolled ? 'text-[#2C1D1A]' : 'text-[#2C1D1A]'} transition-colors font-serif`}>
+            <span className={`text-3xl font-black tracking-tight uppercase transition-colors duration-700 font-serif ${scrolled ? 'text-[#2C1D1A]' : 'text-white'}`}>
               Ocean<span className="text-[#C5A059]">View</span>
             </span>
-            <span className="text-[10px] tracking-[0.4em] uppercase font-bold text-[#8D6E63]">Resort & Spa</span>
+            <span className={`text-[9px] tracking-[0.5em] uppercase font-black transition-colors duration-700 ${scrolled ? 'text-[#8D6E63]' : 'text-[#C5A059]'}`}>Resort & Imperial Spa</span>
           </div>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-10">
+        {/* Desktop Navigation - Sovereign Links */}
+        <nav className="hidden lg:flex items-center gap-12">
           {[
             { name: 'Heritage', path: '/' },
             { name: 'Sanctuaries', path: '/rooms' },
@@ -51,38 +51,38 @@ const Header = () => {
             <Link 
               key={item.name} 
               to={item.path} 
-              className="text-[#5D4037] hover:text-[#C5A059] text-[11px] font-bold tracking-[0.2em] uppercase transition-all duration-300 relative group"
+              className={`text-[10px] font-black tracking-[0.4em] uppercase transition-all duration-500 relative group ${scrolled ? 'text-[#5D4037] hover:text-[#C5A059]' : 'text-white/80 hover:text-white'}`}
             >
               {item.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#C5A059] transition-all duration-300 group-hover:w-full"></span>
+              <span className={`absolute -bottom-2 left-0 h-[2px] transition-all duration-500 group-hover:w-full w-0 ${scrolled ? 'bg-[#C5A059]' : 'bg-white'}`}></span>
             </Link>
           ))}
         </nav>
 
-        {/* Auth Buttons */}
-        <div className="hidden md:flex items-center gap-6 text-[11px] tracking-[0.2em] font-bold">
+        {/* Auth Buttons - Noble Access */}
+        <div className="hidden lg:flex items-center gap-8 text-[10px] tracking-[0.3em] font-black uppercase">
           {user ? (
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-8">
               <Link to={user.role === 'ADMIN' || user.role === 'STAFF' ? '/admin/dashboard' : '/profile'} 
-                className="flex items-center gap-2 text-[#5D4037] hover:text-[#C5A059] transition-colors border-b border-transparent hover:border-[#C5A059] pb-1">
-                <User className="w-4 h-4 text-[#C5A059]" />
+                className={`flex items-center gap-3 transition-all duration-500 border-b-2 border-transparent hover:border-[#C5A059] pb-1 ${scrolled ? 'text-[#2C1D1A]' : 'text-white'}`}>
+                <User className={`w-4 h-4 ${scrolled ? 'text-[#C5A059]' : 'text-[#C5A059]'}`} />
                 <span>{user.name.split(' ')[0]}</span>
               </Link>
               <button 
                 onClick={handleLogout}
-                className="p-2 text-[#8D6E63] hover:text-red-700 transition-colors"
+                className={`p-2 transition-colors ${scrolled ? 'text-[#8D6E63] hover:text-red-700' : 'text-white/60 hover:text-white'}`}
                 title="Depart"
               >
                 <LogOut className="w-4 h-4" />
               </button>
             </div>
           ) : (
-            <div className="flex items-center gap-6">
-              <Link to="/login" className="flex items-center gap-2 text-[#5D4037] hover:text-[#C5A059] transition-colors pb-1">
-                <LogIn className="w-4 h-4" />
+            <div className="flex items-center gap-8">
+              <Link to="/login" className={`flex items-center gap-3 transition-all duration-500 border-b-2 border-transparent hover:border-white pb-1 ${scrolled ? 'text-[#5D4037]' : 'text-white'}`}>
+                <LogIn className="w-4 h-4 text-[#C5A059]" />
                 <span>Sign In</span>
               </Link>
-              <Link to="/register" className="bg-[#5D4037] text-white px-8 py-3 rounded-none hover:bg-[#2C1D1A] transition-all duration-500 shadow-lg shadow-black/10">
+              <Link to="/register" className={`px-12 py-4 shadow-2xl transition-all duration-700 ${scrolled ? 'bg-[#5D4037] text-white hover:bg-[#2C1D1A]' : 'bg-white text-[#2C1D1A] hover:bg-[#C5A059] hover:text-white'}`}>
                 Reserve Now
               </Link>
             </div>
